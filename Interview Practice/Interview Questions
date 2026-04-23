@@ -1,0 +1,89 @@
+TransOrg Analytics
+
+1. What is React ?
+2. Why React ?
+4. How React makes sure to update specific part of DOM instead of complete DOM updation ?
+5. Which Data Structure React Uses ?
+6. What is Server Components ? What was the recent issue with that ?
+7. CSR vs SSR
+8. What is Tree Shaking ? Have you implemented it ?
+9. What is Web Worker ? Example of Web Worker ?
+10. Different ways to optimize the performance.
+11. What is Authentication ? JWT question ? Authorization ? Protected Route ? Role Based Auth ?
+12. What is React Fiber ? It's implementation usage ?
+13. How to implement Infinite Scroll in vanilla JS ?
+14. What is Code Splitting ? How to implement code splitting ? Real Life Example of it ?
+15. Code Splitting using React Router DOM ?
+
+
+Vernost
+
+
+EXL
+1. What is React ?
+2. Why React ?
+3. Advantages of React ?
+4. What is Custom Hooks ? Code for custom debounce hook
+5. Timer task with 4 buttons -> Start, Stop, Reverse, Reset
+6. State vs Props ?
+7. What is Prop Drilling ? How to avoid it ?
+8. Difference between Redux and Context API ? When to use them with scenario ?
+9. What is Hooks ?
+10. Is Javascript synchronous language ? How does it handle asynchronous task ?
+11. What is Closure ? With Example ? Advantages and Disadvantages of using it.
+12. What is Currying ? Why Currying ? Benefits of Currying
+13. var vs let vs const
+14. Hoisting
+15. Shadowing ? Legal and Illegal shadowing ?
+16. What is Promises ? Difference between Promise and async await ?
+17. Difference between Promise.all, Promise.allSettled, Promise.race, Promise.any
+18. Which maintains the order of execution between Promise.all and Promise.allSettled
+19. What is Typescript ? Benefit of using Typescript ?
+20. Difference between Interface and Types ?
+21. Difference between ENUM and Union ?
+22. Difference between any and unknown ?
+23. What is Tuple ?
+24. What is Generic Type ?
+
+
+Cognizant
+1. Debounce
+2. Counter with even increment, odd increment
+3. useMemo vs useCallback
+4. Re-rendering
+5. Context API vs Redux
+6. React.memo example
+7. type Props = { user?: { name: string } };
+    export function Header({ user }: Props) {
+        return <h1>{user!.name}</h1>; 
+    }
+8. export default function App() {
+    const onChange = (e: any) => console.log(e.target.value)
+        return (
+            <input onChange={onChange} />
+        )
+    }
+9. export default function App({ setUser }: { setUser: (n: number) => void }) {
+        setUser(1)
+        return (
+            <div></div>
+        )
+    }
+10. Status codes
+11. Benefit of using React JS
+12. What is Virtual DOM
+
+
+Capgemini
+1. Data Analytics ? User activity ?
+2. What is React ? Benefit of React ? Why React ?
+3. Performance Optimization Techniques
+4. E2E request flow library (data dog) 
+5. React vs Next
+6. useMemo vs useCallback
+7. Context API vs Redux
+8. Security
+9. Some management questions
+10. CI/CD tools
+11. Internal/External storages like Firebase
+12. Cloud Services

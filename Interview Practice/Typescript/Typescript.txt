@@ -1,0 +1,254 @@
+Reerence -> https://www.geeksforgeeks.org/typescript/typescript-interview-questions/
+
+1. Explain the data types available in TypeScript.
+-> 
+    Built-in data types (Primitives) :
+        String, Number, Boolean, Null, Undefined, any, void, never
+    User-defined data types (References / Non-Primitives) :
+        Arrays, Enums, Tuples -> fixed size with type inferred, Classes, Interface
+
+2. In how many ways we can declare variables in TypeScript ?
+-> Using var, let, const
+
+3. What are the advantages of using TypeScript?
+->
+    - Typescript provides us the type safety and throws errors at compilation time during development so that we can avoid errors at runtime.
+    // OR
+    - The TypeScript code can compile down to the JavaScript code that is runnable on every browser.
+    - It allow us to declare strongly or statically typed variables.
+    - TypeScript throw errors at the compilation time during development unlike of JavaScript that shows errors at the runtime.
+
+4. List some disadvantages of using TypeScript.
+->
+    - The concept of abstract classes is not supported by TypeScript.
+    - Code Compilation is a time taking process in TypeScript.
+    - A extra step of converting the TypeScript code into JavaScript code requires while running TypeScript.
+    - The quality of all the definition files need to be correct.
+
+5. What is ENUM ?
+-> Enums allow a developer to define a set of named constants.
+enum UserRole {
+  ADMIN = 'admin',
+  SUPERADMIN = 'root',
+  USER = 'user',
+  GUEST = 'guest'
+}
+enum STATUSCODE {
+  NOTFOUND = 'not found',
+  ABANDONED = 'abandoned',
+}
+
+6. Any vs Unknown ?
+-> 
+Type Checking       Disabled for this variable          Enforced
+Property Access	    Allowed without checking	        Error until type is narrowed
+Method Calls	    Allowed without checking	        Error until type is narrowed
+Safe Usage	        Unsafe; can cause runtime errors	Safe; requires explicit type checks
+Any -> The any type is the most flexible type in TypeScript. It essentially tells the compiler to skip type checking for a particular variable.
+Unknown -> The unknown type is a type-safe counterpart of any. It's the type-safe way to say "this could be anything, so you must perform some type of checking before you use it".
+Never -> The never type represents the type of values that never occur. It's used to indicate that something never happens or should never happen.
+
+
+7. Explain the union types in TypeScript ?
+-> A TypeScript union type is a way of declaring that a variable or parameter can be one of several different types. It provides flexibility while still enforcing type safety at compile time.
+Eg :-
+let value: string | number;
+value = "hello"; // Valid
+value = 42;      // Valid
+// value = true; // Error: Type 'boolean' is not assignable
+
+8. What is never type and its uses in TypeScript ?
+-> The never type in TypeScript represents the type of values that never occur. It is the "bottom type" in TypeScript's type hierarchy, meaning no value (not even null or undefined, except never itself) can be assigned to a variable of type never.
+A function that either always throws an exception or contains an infinite loop has a return type of never.
+
+9. Explain type inference in TypeScript.
+-> In TypeScript, type inference is the compiler's ability to automatically determine the type of a variable, function, or expression based on its assigned value, without requiring explicit type annotations. The separate infer keyword is used within conditional types to extract a type and assign it to a new type variable.
+
+10. Interface vs Types ?
+->
+    - 2 Interfaces with same names gets merged while in the case of type it will throw error
+    - Type is used to define a new type while Interface is used to define/create the structure/shape of object
+
+11. What is generics ?
+-> Generics allow creating 'type variables' which can be used to create classes, functions & type aliases that don't need to explicitly define the types that they use. Generics make it easier to write reusable code.
+function test<T>(a: T, b: T): T {
+    return a
+}
+test<number>(2, 3)
+test<string>('a', 'b')
+
+12. What is utility types ?
+-> TypeScript comes with a large number of types that can help with some common type manipulation, usually referred to as utility types.
+    - Partial -> Partial changes all the properties in an object to be optional.
+        interface Point {
+            x: number;
+            y: number;
+        }
+        let pointPart: Partial<Point> = {};
+        pointPart.x = 10;
+    - Required -> Required changes all the properties in an object to be required.
+        interface Car {
+            make: string;
+            model: string;
+            mileage?: number;
+        }
+
+        let myCar: Required<Car> = {
+            make: 'Ford',
+            model: 'Focus',
+            mileage: 12000
+        };
+    - Record -> Record is a shortcut to defining an object type with a specific key type and value type.
+        const nameAgeMap: Record<string, number> = { // OR consy nameAgeMap: { [key: string]: number }
+            'Alice': 21,
+            'Bob': 25
+        };
+    - Omit -> Omit removes keys from an object type.
+        interface Person {
+            name: string;
+            age: number;
+            location?: string;
+        }
+
+        const bob: Omit<Person, 'age' | 'location'> = {
+            name: 'Bob'
+            // `Omit` has removed age and location from the type and they can't be defined here
+        };
+    - Pick -> Pick removes all but the specified keys from an object type.
+        interface Person {
+            name: string;
+            age: number;
+            location?: string;
+        }
+
+        const bob: Pick<Person, 'name'> = {
+            name: 'Bob'
+            // `Pick` has only kept name, so age and location were removed from the type and they can't be defined here
+        };
+    - Exclude -> Exclude removes types from a union.
+        type Primitive = string | number | boolean
+        const value: Exclude<Primitive, string> = true; // a string cannot be used here since Exclude removed it from the type.
+    - ReturnType -> ReturnType extracts the return type of a function type.
+        type PointGenerator = () => { x: number; y: number; };
+        const point: ReturnType<PointGenerator> = {
+            x: 10,
+            y: 20
+        };
+    - Parameters -> Parameters extracts the parameter types of a function type as an array.
+        type PointPrinter = (p: { x: number; y: number; }) => void;
+        const point: Parameters<PointPrinter>[0] = {
+            x: 10,
+            y: 20
+        };
+    - Readonly -> Readonly is used to create a new type where all properties are readonly, meaning they cannot be modified once assigned a value.
+
+13. What is Type Guards ?
+-> Type Guards are powerful constructs that allow you to narrow down the type of a variable within a specific scope.
+    - typeof -> The typeof operator is a built-in type guard that checks the type of a primitive value at runtime.
+    - instanceof -> The instanceof operator checks if an object is an instance of a specific class or constructor function.
+    - user defined type guard -> For more complex type checking, you can create custom type guard functions using type predicates. These are functions that return a type predicate in the form parameterName is Type.
+        interface Car {
+            make: string;
+            model: string;
+            year: number;
+        }
+
+        interface Motorcycle {
+            make: string;
+            model: string;
+            year: number;
+            type: "sport" | "cruiser";
+        }
+
+        // Type predicate function
+        function isCar(vehicle: Car | Motorcycle): vehicle is Car {
+            return (vehicle as Motorcycle).type === undefined;
+        }
+
+        function displayVehicleInfo(vehicle: Car | Motorcycle) {
+            console.log(`Make: ${vehicle.make}, Model: ${vehicle.model}, Year: ${vehicle.year}`);
+
+            if (isCar(vehicle)) {
+                // TypeScript knows vehicle is Car here
+                console.log("This is a car");
+            } else {
+                // TypeScript knows vehicle is Motorcycle here
+                console.log(`This is a ${vehicle.type} motorcycle`);
+            }
+        }
+    - Discriminated Unions -> Discriminated unions (also known as tagged unions) use a common property (the discriminant) to distinguish between different object types in a union.
+        interface Circle {
+            kind: "circle";
+            radius: number;
+        }
+
+        interface Square {
+            kind: "square";
+            sideLength: number;
+        }
+
+        type Shape = Circle | Square;
+
+        function calculateArea(shape: Shape) {
+            switch (shape.kind) {
+                case "circle":
+                // TypeScript knows shape is Circle here
+                return Math.PI * shape.radius ** 2;
+                case "square":
+                // TypeScript knows shape is Square here
+                return shape.sideLength ** 2;
+            }
+        }
+    - in -> The in operator checks for the existence of a property on an object.
+        interface Dog {
+            bark(): void;
+        }
+
+        interface Cat {
+            meow(): void;
+        }
+
+        function makeSound(animal: Dog | Cat) {
+            if ("bark" in animal) {
+                // TypeScript knows animal is Dog here
+                animal.bark();
+            } else {
+                // TypeScript knows animal is Cat here
+                animal.meow();
+            }
+        }
+
+14. What are Decorators in TypeScript?
+-> Decorators are a powerful TypeScript feature that allow you to add metadata and modify classes and their members at design time.
+    - Class Decorators -> Class decorators are applied to the constructor of a class and can be used to observe, modify, or replace a class definition.
+        // A simple class decorator that logs class definition
+        function logClass(constructor: Function) {
+            console.log(`Class ${constructor.name} was defined at ${new Date().toISOString()}`);
+        }
+
+        // Applying the decorator
+        @logClass
+        class UserService {
+            getUsers() {
+                return ['Alice', 'Bob', 'Charlie'];
+            }
+        }
+        // Output when the file is loaded: "Class UserService was defined at [timestamp]"
+
+15. Explain Mixins in TypeScript
+
+16. Is it possible to create the immutable Object properties in TypeScript?
+
+17. Is it possible to create the static classes in TypeScript?
+
+18. What is type casting ?
+-> A straightforward way to cast a variable is using the as keyword, which will directly change the type of the given variable.
+let x: unknown = 'hello';
+console.log((x as string).length);
+
+Using <> works the same as casting with as.
+let x: unknown = 'hello';
+console.log((<string>x).length);
+
+
+    

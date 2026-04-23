@@ -1,0 +1,65 @@
+1. Static Website 
+	- Create a website using HTML, CSS and then upload it as a static files to a storage bucket in the cloud and point a domain name to it.
+	Disadvantage -
+		1. No Dynamic Data
+		2. No Interactivity
+
+2. Multiple Page Application (MPA) -
+
+3. Single Page Application (SPA) / Client Side Rendering (CSR) 
+	- In this all the UI rendering happens in the browser itself. We start with 1 HTML page as a shell then execute javascript to render the UI and fetch the required data with additional HTTP request. Now even though it is single page it can still have multiple routes. Thus routes don't point to the server they just updated by the javascript in the browser.
+	Advantage - 
+		1. Efficient performance when toggling between the pages as there is no loading
+	Disadvantage - 
+		1. Requires a large javascript bundle which can make the initial page load pretty slow
+		2. Because of it only renders the shell search engines even today have a hard time understanding any of the content on the dynamic routes and that's a no go if we need SEO
+
+4. Server Side Rendering (SSR) (Generates on each request)
+	- Initial request goes to server and renders everything dynamically then after that initial page load javascript takes over to give us the app like SPA experience 
+	(SPA + MPA -> SSR).
+	- The rendering instead of happening at the client side, it actually happens on the server side. Client request for the webpage and that webpage gets generated/rendered on server 	and it is send to the client. In simple words client request for the page to the server, server renders the page by pulling all the required data and then do the painting and then the page (along with the javascript) is send to the client in one go.
+	Disadvantage -
+		1. Server is required
+
+5. Static Site Generation (SSG) (Generates on build time)
+	- Render all HTML in advance and then upload it to the static host like storage bucket, but like SSR it will hydrate javascript after the initial page load.
+	- This can make any CMS website 1000 times faster because we already know what kind of webpages are going to be there, everything is coming from the CMS, so we know what data we 	have, we don't need to build every single second, we can keep the generated page with us and can make it faster.
+	Disadvantage -
+		1. Redeploy the site when the data changes
+		2. Build time will be painfully long
+	Advantage -
+		1. Faster because we already have build our pages and pushed it on server, so whenever client request we just pass the webpage
+
+6. Incremental Static Regeneration (ISR) 
+	- Deploy static site but rebuild individual pages on the server when the cache is invalidated. Normally with the static site we can cache everything permanently on the CDN making 	it extremely fast. Cache can be invalidated based on certain rules like a specific amount of time and if that happens the pages will rebuild. This allows us to handle dynamic data 	without need for actual server deployment
+	- One of the problem with the SSG is if there is any content updates, we probably don't have updation for eg if our build happens every 3rd day of the week and if somebody has 	updated anything on 5th day of the week, then we don't get that updated content. We have to forcefully build it or wait for the self build trigger after that only we can have the 	updated content. In ISR there is a constant cycle of how the build is going to happen (it does cost a little bit more money).
+	- ISR enables you to use static-generation on a per-page basis, without needing to rebuild the entire site. With ISR, you can retain the benefits of static while scaling to 	millions of pages.
+	Disadvantage -
+		1. Complex to setup on your own
+
+Any framework that uses hydration is that on initial page load the app might look like its frozen while the javascript is still executing to take over the rendering process.
+
+7. Partial Hydration - To solve above problem we have this rendering type. On a large website javascript may have a lot to do poor things they aren't even visible to the end user like maybe we have the world's most awesome highly interactive footer but blows up the javascript callstack. With Partial Hydration we might render the component at the top of the page first and wait until the user scrolls down before making component interactive. Many tools supports code splitting to break our applications in small chunks to facilitate Lazy Loading patterns like this.
+
+8. Islands - But it may be possible to render even more efficiently with the islands architecture. Normally when hydrating javascript takes everything entire page but that's not very efficient because many components are just static and non-interactive. With Islands we start with static html then only use javascript to hydrate interactive component. This gives us island of interactivity.
+	Advantage - 
+		1. If there is complete static page that is not interactive at all in that case no javascript is ever shipped to the client even we build the UI using the javascript framework like react.
+
+9. Streaming SSR - Another way to address the inefficient hydration. It is supported in Next JS v13 (thanks to building blocks like react-server components). Basically it allows us to render the server side content concurrently in multiple chunks instead of all of once. Ultimately this means that the UI becomes interactive faster and feels more performant to the end user
+
+10. Resumability - If we want to get rid of hydration all together because it seems like it sources a lot of problems and that's where the Resumability comes in which is new rendering pattern. It takes interesting approach where the website and all of it's data even things like javascript event listeners are serialized into HTML then the actual javascript code is broken into tons of tiny chunks that means the initial page load is always static html. No hydration is needed. Any javascript required for interactivity is lazy loaded in the background.
+
+
+
+Parameters to judge which technique should we opt
+1. Build time - Is build time important for you on server or client ?
+2. Dynamic Content - How often your content gets updated ?
+3. Search Engine Optimization - How important is SEO for you ?
+4. Render Time - 
+5. Content Updation - How often do you want your content to update or how much often your content actually gets updated ?
+
+
+Hydration 
+	- Hydration is simply the process of attaching JavaScript behavior to HTML elements that have been generated on the server, it is necessary to make a web page interactive, allowing users to click buttons, fill out forms, and perform other actions. Without hydration, web pages would be static and unresponsive.
+	- In essence, hydration transforms a static, server-rendered web page into a fully dynamic and interactive client-side application without the user experiencing a blank screen or a noticeable re-render. It bridges the gap between the benefits of SSR (fast initial load, SEO) and the interactivity of client-side rendering.
+

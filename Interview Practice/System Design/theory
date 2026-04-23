@@ -1,0 +1,5 @@
+1. Design a real-time collaborative text editor (Google Docs Style)
+2. Design a dynamic pagination system for infinite scrolling
+3. Design a client-side state management system like Redux Toolkit
+4. Design a rate limiter for API calls in SPA
+5. Design a user auth flow with social login -- OAuth + JWT tokens
