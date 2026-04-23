@@ -1,0 +1,208 @@
+1. What are React Fragments used for ?
+-> React Fragments are a feature introduced in React 16.2 that allows you to group multiple children elements without adding extra nodes to the DOM. Fragments are useful when you need to return multiple elements from a component but don't want to wrap them in a parent element. They help keep the DOM structure clean and avoid unnecessary div wrappers.
+
+2. What is the purpose of the key prop in React ?
+-> The key prop is a special attribute used in React to uniquely identify elements in a list. When rendering a list of elements, React uses the key prop to keep track of each element's identity and optimize the rendering process. The key prop helps React identify which items have changed, been added, or been removed, allowing it to update the DOM efficiently.
+
+3. What is the difference between Controlled and Uncontrolled React components ?
+-> Controlled Components: In a controlled component, form data is handled by React state and is updated via state changes. The input value is controlled by React, and any changes to the input are handled by React event handlers. Controlled components provide more control over form inputs and allow you to validate and manipulate the input data before updating the state.
+
+Uncontrolled Components: In an uncontrolled component, form data is handled by the DOM itself, and React does not control the input value. The input value is managed by the DOM, and you can access the input value using a ref. Uncontrolled components are useful for integrating with third-party libraries or when you need to access the input value imperatively (important, urgent or commanding).
+
+4. How would you lift the state up in a React application, and why is it necessary ?
+-> Lifting state up in React involves moving the state from child components to their nearest common ancestor. This pattern is used to share state between components that don't have a direct parent-child relationship. By lifting state up, you can avoid prop drilling and simplify the management of shared data.
+
+5. What are Pure Components ?
+-> Pure Components are a type of React component that extends React.PureComponent or uses the React.memo higher-order component. Pure Components are optimized for performance and implement a shouldComponentUpdate method that performs a shallow comparison of props and state to determine if the component should re-render. If the props and state of a Pure Component have not changed, React skips the re-rendering process, improving performance.
+Pure Components are useful when you have components that render the same output given the same input and don't rely on external state or side effects. By using Pure Components, you can prevent unnecessary re-renders and optimize your React application.
+
+6. What is the difference between createElement and cloneElement ?
+-> createElement: Used to create a new React element by specifying its type (e.g., 'div', a React component), props, and children.
+<!-- Example -->
+React.createElement('div', { className: 'container' }, 'Hello World');
+
+cloneElement: Used to clone an existing React element and optionally modify its props while keeping the original element's children and state.
+<!-- Example -->
+const element = <button className="btn">Click Me</button>;
+const clonedElement = React.cloneElement(element, { className: 'btn-primary' });
+
+7. What is the role of PropTypes in React ?
+-> PropTypes is a library used in React to validate the props passed to a component. PropTypes help you define the types of props a component expects and provide warnings in the console if the props are of the wrong type. PropTypes are useful for documenting component APIs, catching bugs early, and ensuring that components receive the correct data.
+<!-- Example -->
+import PropTypes from 'prop-types';
+
+const Greeting = ({ name }) => <h1>Hello, {name}!</h1>;
+
+Greeting.propTypes = {
+  name: PropTypes.string.isRequired,
+};
+
+8. What are stateless components ?
+-> Stateless components do not manage internal state; they receive data via props and focus solely on rendering UI based on that data.
+
+9. What are statelessful components ?
+-> Stateful components manage their own internal state and can update their UI based on user interactions or other events.
+
+10. What is the difference between useEffect and useLayoutEffect in React ?
+-> useEffect: Runs after the browser has painted the screen and is used for side effects that don't block the browser's painting process. It's asynchronous and runs after the render is committed to the DOM.
+
+11. What is the useRef hook in React and when should it be used ?
+-> The useRef hook in React creates a mutable reference that persists across renders. It can be used to store references to DOM elements, manage focus, or store mutable values that don't trigger re-renders.
+
+12. Why does React recommend against mutating state ?
+-> React recommends against mutating state directly because it can lead to unexpected behavior and bugs. When you mutate state directly, React may not detect the changes, causing the UI to become out of sync with the application's state. To ensure that React detects state changes correctly, you should always update state using the setState function or hooks like useState.
+
+13. What is reconciliation in React ?
+-> Reconciliation in React is the process through which React updates the DOM to match the virtual DOM. When a component's state or props change, React creates a new virtual DOM tree and compares it with the previous one. This comparison process is called "diffing." React then updates only the parts of the actual DOM that have changed, making the updates efficient and fast.
+
+14. What is hydration in React ?
+-> React hydration is the process of attaching event listeners and making a server-rendered HTML page interactive on the client side. When a React application is server-side rendered, the HTML is sent to the client, and React takes over to make it dynamic by attaching event handlers and initializing state. This process is called hydration.
+
+Server-side rendering (SSR)
+Server-side rendering (SSR) is a technique where the HTML of a web page is generated on the server and sent to the client. This allows for faster initial page loads and better SEO since the content is already available when the page is loaded.
+
+Server-Side Rendering (SSR) is a technique used to render pages on the server and send the fully rendered page to the client for display. It allows the server to generate the complete HTML markup of a web page, including its dynamic content, and send it to the client as a response to a request.
+In a traditional client-side rendering approach, the client receives a minimal HTML page and then makes additional requests to the server for data and resources, which are used to render the page on the client-side. This can lead to slower initial page loading times and negatively impact search engine optimization (SEO) since search engine crawlers have difficulty indexing JavaScript-driven content.
+With SSR, the server takes care of rendering the web page by executing the necessary JavaScript code to produce the final HTML. This means that the client receives the fully rendered page from the server, reducing the need for additional resource requests. SSR improves initial page load times and allows search engines to easily index the content, resulting in better SEO.
+SSR is commonly used in frameworks and libraries like Next.js for React and Nuxt.js for Vue.js to enable server-side rendering capabilities. These frameworks handle the server-side rendering logic for you, making it easier to implement SSR.
+
+Hydration process
+Hydration is the process that happens after the server-side rendered HTML is sent to the client. React takes the static HTML and "hydrates" it by attaching event listeners and initializing the state, making the page interactive. This process involves:
+
+a. Reusing the existing HTML: React uses the HTML generated by the server and does not re-render it from scratch.
+b. Attaching event listeners: React attaches the necessary event listeners to the existing HTML elements.
+c. Initializing state: React initializes the component state and props to make the page dynamic.
+
+15. Explain higher-order components (HOCs)
+-> Higher-order components (HOCs) are functions that take a component as an argument and return a new component with enhanced functionality. HOCs are used to share code between components, add additional props or behavior to components, and abstract common logic into reusable functions.
+
+16. What are some common performance optimization techniques in React ?
+-> 
+a. Memoization: Use memoization techniques like useMemo and useCallback to cache expensive computations and prevent unnecessary re-renders.
+b. Code Splitting: Split your code into smaller chunks and load them dynamically to reduce the initial bundle size and improve loading times.
+c. Lazy Loading: Use lazy loading to load components or resources only when they are needed, reducing the initial load time of your application.
+d. Virtualization: Implement virtualization techniques like windowing or infinite scrolling to render only the visible elements in long lists or tables, improving performance.
+e. Server-Side Rendering: Use server-side rendering to pre-render your React components on the server and send the HTML to the client, reducing the time to first paint.
+
+17. What is lazy loading in React ?
+-> Lazy loading is a technique used to load components or resources only when they are needed. Lazy loading helps reduce the initial load time of your application by deferring the loading of non-essential components until they are required. React provides a React.lazy function and Suspense component to implement lazy loading in your application.
+
+18. What is the purpose of the useImperativeHandle hook in React ?
+-> The useImperativeHandle hook in React is used to customize the instance value that is exposed to parent components when using React.forwardRef. It allows you to define which properties or methods of a child component's instance should be accessible to parent components when using a ref.
+<!-- Example -->
+const ChildComponent = React.forwardRef((props, ref) => {
+  const inputRef = useRef(null);
+
+  useImperativeHandle(ref, () => ({
+    focus: () => {
+      inputRef.current.focus();
+    },
+  }));
+
+  return <input ref={inputRef} />;
+});
+
+const ParentComponent = () => {
+  const childRef = useRef(null);
+
+  const handleClick = () => {
+    childRef.current.focus();
+  };
+
+  return (
+    <>
+      <ChildComponent ref={childRef} />
+      <button onClick={handleClick}>Focus Input</button>
+    </>
+  );
+};
+
+19. What React hooks do you know ?
+->
+useState: Used for managing state in functional components.
+useEffect: Used for performing side effects in functional components, such as fetching data or subscribing to events.
+useContext: Used for accessing the value of a React context within a functional component.
+useRef: Used for creating mutable references to elements or values that persist across renders.
+useMemo: Used for memoizing values to improve performance by caching expensive computations.
+useCallback: Used for memoizing functions to prevent unnecessary re-renders.
+useReducer: Used for managing state with a reducer function, similar to how Redux works.
+useLayoutEffect: Similar to useEffect, but the effect runs synchronously after all DOM mutations.
+useImperativeHandle: It will enable modifying the instance that will be passed with the ref object.
+useDebugValue: It is used for displaying a label for custom hooks in React DevTools.
+
+20. What is the difference between class-based and functional React components ?
+-> The main difference between class-based and functional components is how they are defined and the syntax they use.
+Class-based components are defined as ES6 classes and extend the React.Component class. They use the render method to return the JSX (JavaScript XML) that defines the component's output. Class components have access to component lifecycle methods and state management through this.state and this.setState().
+
+Functional components, on the other hand, are defined as simple JavaScript functions. They take in props as arguments and return JSX directly. Functional components do not have access to lifecycle methods or state. However, with the introduction of React Hooks in React 16.8, functional components can now manage state and use other features such as context and effects.
+
+21. Which pattern does Redux implement ?
+-> Redux implements the Flux pattern, which is a predictable state management pattern for applications. It helps in managing the state of an application by introducing a unidirectional data flow and a centralized store for the application's state.
+
+22. Which pattern does Mobx implement ?
+-> Mobx implements the Observer pattern, also known as the Publish-Subscribe pattern.
+
+23. What is the difference between Redux and Mobx ?
+-> Redux is a simpler and more opinionated state management library that follows a strict unidirectional data flow and promotes immutability. It requires more boilerplate code and explicit updates but has excellent integration with React.
+Mobx, on the other hand, provides a more flexible and intuitive API with less boilerplate code. It allows you to directly modify the state and automatically tracks changes for better performance. The choice between Redux and Mobx depends on your specific needs and preferences.
+
+24. What architectural solutions for React do you know ?
+->
+a. MVC (Model-View-Controller): MVC is a traditional architectural pattern that separates an application into three main components - Model, View, and Controller. React can be used in the View layer to render the UI, while other libraries or frameworks can be used for the Model and Controller layers.
+b. Flux: Flux is an application architecture introduced by Facebook specifically for React applications. It follows a unidirectional data flow, where data flows in a single direction, making it easier to understand and debug the application's state changes.
+c. Atomic Design: Atomic Design is not specific to React but is a design methodology that divides the UI into smaller, reusable components. It encourages building components that are small, self-contained, and can be composed to create more complex UIs.
+d. Container and Component Pattern: This pattern separates the presentation (Component) from the logic and state management (Container). Components are responsible for rendering the UI, while Containers handle the business logic and state management.
+e. Feature-Sliced Design: It is a modern architectural approach used to organize and structure React applications. It aims to address the challenges of scalability, maintainability, and reusability by dividing the application codebase based on features or modules.
+
+Feature Slice Design (FSD) -> https://dev.to/m_midas/feature-sliced-design-the-best-frontend-architecture-4noj
+
+25. What is JSX ?
+-> JSX stands for JavaScript XML. It allows us to write HTML inside JavaScript and place them in the DOM without using functions like appendChild() or createElement(). As stated in the official docs of React, JSX provides syntactic sugar for React.createElement() function.
+
+26. What are Custom Hooks ?
+-> A Custom Hook is a function in Javascript whose name begins with ‘use’ and which calls other hooks. It is a part of React v16.8 hook update and permits you for reusing the stateful logic without any need for component hierarchy restructuring.
+In almost all of the cases, custom hooks are considered to be sufficient for replacing render props and HoCs (Higher-Order components) and reducing the amount of nesting required. Custom Hooks will allow you for avoiding multiple layers of abstraction or wrapper hell that might come along with Render Props and HoCs.
+The disadvantage of Custom Hooks is it cannot be used inside of the classes.
+
+27. What is React Router ?
+-> React Router refers to the standard library used for routing in React. It permits us for building a single-page web application in React with navigation without even refreshing the page when the user navigates. It also allows to change the browser URL and will keep the user interface in sync with the URL.
+The major components of React Router are given below:
+a. BrowserRouter: It is a router implementation that will make use of the HTML5 history API (pushState, popstate, and event replaceState) for keeping your UI to be in sync with the URL. It is the parent component useful in storing all other components.
+b. Routes: It is a newer component that has been introduced in the React v6 and an upgrade of the component.
+c. Route: It is considered to be a conditionally shown component and some UI will be rendered by this whenever there is a match between its path and the current URL.
+d. Link: It is useful in creating links to various routes and implementing navigation all over the application. It works similarly to the anchor tag in HTML.
+
+28. What are the different phases of the component lifecycle ?
+->
+a. Initialization: During this phase, React component will prepare by setting up the default props and initial state for the upcoming tough journey.
+b. Mounting: Mounting refers to putting the elements into the browser DOM. Since React uses VirtualDOM, the entire browser DOM which has been currently rendered would not be refreshed. This phase includes the lifecycle methods componentWillMount and componentDidMount.
+c. Updating: In this phase, a component will be updated when there is a change in the state or props of a component. This phase will have lifecycle methods like componentWillUpdate, shouldComponentUpdate, render, and componentDidUpdate.
+d. Unmounting: In this last phase of the component lifecycle, the component will be removed from the DOM or will be unmounted from the browser DOM. This phase will have the lifecycle method named componentWillUnmount.
+
+29. What are the lifecycle methods of React ?
+->
+a. constructor(): This method will be called when the component is initiated before anything has been done. It helps to set up the initial state and initial values.
+b. getDerivedStateFromProps(): This method will be called just before element(s) rendering in the DOM. It helps to set up the state object depending on the initial props. The getDerivedStateFromProps() method will have a state as an argument and it returns an object that made changes to the state. This will be the first method to be called on an updating of a component.
+c. render(): This method will output or re-render the HTML to the DOM with new changes. The render() method is an essential method and will be called always while the remaining methods are optional and will be called only if they are defined.
+d. componentDidMount(): This method will be called after the rendering of the component. Using this method, you can run statements that need the component to be already kept in the DOM.
+e. shouldComponentUpdate(): The Boolean value will be returned by this method which will specify whether React should proceed further with the rendering or not. The default value for this method will be True.
+f. getSnapshotBeforeUpdate(): This method will provide access for the props as well as for the state before the update. It is possible to check the previously present value before the update, even after the update.
+g. componentDidUpdate(): This method will be called after the component has been updated in the DOM.
+h. componentWillUnmount(): This method will be called when the component removal from the DOM is about to happen.
+
+30. Explain Virtual DOM
+-> Virtual DOM is a lightweight copy of the actual DOM. React uses it to improve performance by first updating the Virtual DOM, then efficiently calculating the minimal changes needed to update the real DOM.
+
+31. What are synthetic events in React ?
+-> Synthetic events combine the response of different browser’s native events into one API, ensuring that the events are consistent across different browsers.
+The application is consistent regardless of the browser it is running in. Here, preventDefault is a synthetic event.
+
+Synthetic events are objects that act as a cross-browser wrapper around a native browser event. They combine the behavior of different browsers into one API. This is done to ensure that events display consistent properties across browsers.
+
+32. What is the difference between BrowserRouter and HashRouter in React Router ?
+-> BrowserRouter uses the HTML5 history API to keep the UI in sync with the URL, resulting in clean URLs. HashRouter uses the hash portion of the URL (e.g., #/about ) and does not require server-side configuration.
+
+33. ReactDOM.render() vs createRoot()
+34. How does React handles circular dependencies in useEffect ?
+35. useState() vs useReducer ? When to choose which ?
+36. Optimistic updates vs Pessimistic updatesin React ?

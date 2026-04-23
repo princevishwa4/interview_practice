@@ -1,0 +1,6 @@
+
+Compound Component :- The component are split up into multiple components into sub-components that are designed to work together. This sub-components essentially make up to one whole main component that can be used anywhere in the application. But the beauty of it is that you're completely free to pick and choose which sub-component you want to use in that specific use case and even we can reorder the components to be redered according to our will.
+This pattern should be used in the scenario where you want to show the same thing on different places but with subtle difference and those things must be customizable.
+Problem :- So lets suppose there is a Home screen which is rendering all the post card (which contains heading, description, author and 2 buttons). So now if I visit to profile page then on I don't wanna show author and if I visit on my favourite page then I might don't wanna show that 2 buttons.
+Now this problem can be solved using the naive of using the addition props like isProfilePage, isFavouritePage and based on that we can conditionally render the elements of post card component.
+But this type of problem can be solved using this compound component design pattern where we can split the complete component into sub components.

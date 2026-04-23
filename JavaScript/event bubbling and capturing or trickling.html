@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Bubbling</title>
+    <style>
+        div {
+            min-width: 100px;
+            min-height: 100px;
+            padding: 30px;
+            border: 1px solid black;
+        }
+    </style>
+</head>
+<body>
+    <div class="grandparent">
+        <div class="parent">
+            <div class="child"></div>
+        </div>
+    </div>
+
+    <script>
+        // 3rd argument of event listener is useCapture which is boolean in nature.
+        // by default it is false which means event bubbling
+        // document.querySelector('.grandparent').addEventListener('click', () => console.log('Grandparent Called'));
+        // document.querySelector('.parent').addEventListener('click', () => console.log('Parent Called'));
+        // document.querySelector('.child').addEventListener('click', () => console.log('Child Called'));
+
+        // event capturing or trickling
+        // document.querySelector('.grandparent').addEventListener('click', () => console.log('Grandparent Called'), true);
+        // document.querySelector('.parent').addEventListener('click', () => console.log('Parent Called'), true);
+        // document.querySelector('.child').addEventListener('click', () => console.log('Child Called'), true);
+
+        // to stop event we can use stopPropagation
+
+        // according to the w3c first event capturing will take place then event bubbling take place
+        // output :-
+        // Grandparent called
+        // Child called
+        // Parent called
+        // document.querySelector('.grandparent').addEventListener('click', () => console.log('Grandparent Called'), true);
+        // document.querySelector('.parent').addEventListener('click', () => console.log('Parent Called'), false);
+        // document.querySelector('.child').addEventListener('click', () => console.log('Child Called'), true); 
+        
+        // OR
+
+        // output :-
+        // Parent called        
+        // Child called
+        // Grandparent called
+        document.querySelector('.grandparent').addEventListener('click', () => console.log('Grandparent Called'), false);
+        document.querySelector('.parent').addEventListener('click', () => console.log('Parent Called'), true);
+        document.querySelector('.child').addEventListener('click', () => console.log('Child Called'), false); 
+    </script>
+</body>
+</html>

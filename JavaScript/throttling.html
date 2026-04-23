@@ -1,0 +1,37 @@
+<!-- Throttling is a technique that limits the execution of a function to once after every X milliseconds -->
+ <!DOCTYPE html>
+ <html lang="en">
+ <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Throttling</title>
+ </head>
+ <body>
+        <button id="spamButton">Spam Me!</button>
+        <p>Action Count: <span id="count">0</span></p>
+
+        <script>
+            const btn = document.querySelector("#spamButton");
+            const display = document.querySelector("#count");
+            let clickCount = 0;
+
+            function throttle(cb, limit) {
+                let inThrottle = false;
+                return function(...args) {
+                    if (!inThrottle) {
+                        cb.apply(this, args);
+                        inThrottle = true;
+                        setTimeout(() => inThrottle = false, limit)
+                    }
+                }
+            }
+
+            const handleAction = () => {
+                clickCount++;
+                display.innerText = clickCount;
+                // console.log("Action performed at:", new Date().toLocaleTimeString());
+            };
+            btn.addEventListener("click", throttle(handleAction, 2000));
+        </script>
+ </body>
+ </html>

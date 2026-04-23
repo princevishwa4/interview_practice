@@ -1,0 +1,20 @@
+
+// Scope :-
+//     1. var :- Function Scoped
+//     2. let :- Block Scoped
+//     3. const :- Block Scoped
+
+// Reassignment :-
+//     1. var :- Yes
+//     2. let :- Yes
+//     3. const :- No
+
+// Hoisting :-
+//     1. var :- Yes, will get undefined if we will try to access before initialization
+//     2. let :- Yes, but we will get ReferenceError because of Temporal Dead Zone
+//     3. const :- Yes, but we will get ReferenceError because of Temporal Dead Zone 
+
+// Redeclaration :-
+//     1. var :- Yes, within the same scope
+//     2. let :- No, within the same scope
+//     3. const :- No, within the same scope

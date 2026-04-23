@@ -1,0 +1,138 @@
+CLS (Cumulative Layout Shift) - It is a key web performance metric that measures the visual stability of a webpage as it loads. CLS quantifies how much visible content unexpectedly shifts during the loading phase of a webpage. These shifts happen when elements like images, ads, or fonts load late and push other content around.
+Example: You’re about to click a “Buy Now” button, but an ad loads above it and shifts the button down — you accidentally click something else instead.
+How to Improve :-
+1. Set Dimensions for Images and Videos
+    Always define width and height attributes to reserve space.
+2. Reserve Space for Ads and Embeds
+    Use containers with fixed dimensions to prevent content shifts.
+3. Avoid Injecting Content Above Existing Elements
+    Unless triggered by user interaction, don’t add new elements above the fold.
+4. Use Font Display Strategies
+    Prevent layout shifts caused by late-loading fonts using font-display: swap.
+5. Animate Transitions Instead of Sudden Changes
+    Smooth animations are less disruptive than abrupt layout changes
+
+
+LCP (Largest Contentful Paint) - It is a key web performance metric that measures how quickly the main/largest content of a webpage becomes visible to users. LCP tracks the time it takes for the largest visible element — typically a hero image, video, or large text block — to fully render in the viewport after the page starts loading.
+How to Improve :-
+1. Optimize Images and Videos
+    Compress files
+    Use modern formats like WebP
+    Lazy-load offscreen media
+2. Improve Server Response Time
+    Use caching
+    Deploy a CDN
+    Optimize backend performance
+3. Minimize Render-Blocking Resources
+    Defer non-critical JavaScript
+    Inline critical CSS
+4. Preload Key Resources
+    Use preload or fetchpriority="high" for LCP elements
+5. Use Efficient Hosting
+    Choose fast, reliable servers
+    Reduce Time to First Byte (TTFB)
+
+
+FID (First Input Delay) - It is a web performance metric that measures how quickly a webpage responds to a user's first interaction — such as clicking a link, tapping a button, or pressing a key.
+FID tracks the time between:
+    - User’s first interaction (click/tap/keypress)
+    - and when the browser starts processing that interaction
+It’s a measure of input latency, not visual load or processing time. For example, if you tap a button and nothing happens for a moment, that delay is what FID captures.
+How to Improve :-
+1. Minimize JavaScript Execution Time
+    Break up long tasks
+    Use code-splitting and lazy loading
+2. Defer Non-Critical Scripts
+    Load third-party scripts after user interaction
+3. Use Web Workers
+    Offload heavy computations from the main thread
+4. Reduce Main Thread Blocking
+    Optimize rendering and avoid large synchronous operations
+
+
+INP (Interactive to Next Paint) - It is a web performance metric introduced by Google as part of its Core Web Vitals. It officially replaced FID (First Input Delay) in March 2024 as a more comprehensive measure of a webpage’s responsiveness.
+INP tracks the time between a user’s interaction (like clicking, tapping, or typing) and the next visual update (paint) that confirms the action on screen.
+Example: You click “Add to Cart” — INP measures how long it takes for the cart icon to update visually.
+Unlike FID, which only measured the first interaction, INP evaluates all interactions and reports the longest delay (excluding outliers).
+How to Improve :-
+1. Minimize JavaScript Execution
+    Break up long tasks
+    Use code-splitting and lazy loading
+2. Optimize Rendering
+    Avoid layout shifts
+    Use efficient CSS and DOM structures
+3. Improve Server Response Time
+    Use caching and CDNs
+    Optimize backend logic
+4. Provide Immediate Visual Feedback
+    Show loading indicators or UI changes quickly, even if the full action takes time.
+
+
+FCP (First Contentful Paint) - It is a key web performance metric that measures how quickly a webpage begins to visually load. Specifically, it tracks the time from when a user navigates to a page until the browser renders the first piece of content — such as text, images, SVGs, or non-white canvas elements.
+How to Improve :-
+1. Optimize Critical CSS
+    Inline above-the-fold styles
+    Minimize unused CSS
+2. Lazy-Load Fonts
+    Use font-display: swap to avoid delays
+3. Prioritize Above-the-Fold Content
+    Load visible content first
+4. Eliminate Render-Blocking Resources
+    Defer non-critical JavaScript and stylesheets
+5. Use Fast Hosting and CDNs
+    Reduce server response time and latency
+
+
+TTI (Time To Interactive) - It is a web performance metric that measures how long it takes for a webpage to become fully interactive — meaning the page has loaded enough that users can reliably interact with it (e.g., click buttons, type in forms) without delays.
+
+TTI vs. INP
+TTI focuses on initial interactivity during page load, while INP (Interaction to Next Paint) measures ongoing responsiveness throughout the session. INP has now replaced TTI in Google’s Core Web Vitals due to TTI’s sensitivity to outliers and variability.
+How to Improve :-
+1. Minimize Long Tasks
+    Break up heavy JavaScript into smaller chunks.
+2. Defer Non-Critical Scripts
+    Use async or defer for third-party scripts.
+3. Prioritize Critical Resources
+    Load above-the-fold content first.
+4. Use a CDN
+    Improve server response time and reduce latency.
+5. Avoid Render-Blocking Resources
+    Optimize CSS and JavaScript loading strategies.
+
+
+SI (Speed Index) - It is a web performance metric that measures how quickly the contents of your page are visibly populated or It is a web performance metric that measures how quickly the visible parts of a webpage are displayed during the loading process.
+How to Improve :-
+1. Reduce Render-Blocking Resources
+    Minimize or defer CSS and JavaScript that block rendering.
+2. Optimize Images and Fonts
+    Use modern formats (WebP), compress images, and preload fonts.
+3. Minimize Main Thread Work
+    Break up long JavaScript tasks and reduce execution time.
+4. Prioritize Above-the-Fold Content
+    Load visible content first to improve perceived speed.
+
+
+TBT (Total Blocking Time) - It is a key web performance metric that measures how long a webpage’s main thread is blocked and unable to respond to user input during the loading phase.
+TBT tracks the time between:
+    First Contentful Paint (FCP) — when the first visible content appears
+    and Time to Interactive (TTI) — when the page becomes fully usable
+During this time, if the browser’s main thread is busy with long tasks (tasks > 50ms), it can’t respond to user interactions like clicks or taps. TBT sums up the blocking portions of these long tasks.
+How to Improve :- 
+1. Optimize JavaScript Execution
+    Minimize and defer non-critical scripts
+    Use code-splitting and lazy loading
+2. Break Up Long Tasks
+    Refactor heavy synchronous code into smaller async chunks
+3. Use Web Workers
+    Offload heavy computations from the main thread
+4. Reduce Third-Party Script Impact
+    Audit and delay loading of ads, analytics, and widgets
+5. Avoid Render-Blocking Resources
+    Optimize CSS and JavaScript loading strategies
+
+
+
+Few websites to measure the metrics
+1. Pagespeed insights
+2. GTMetrics
+3. Lighthouse

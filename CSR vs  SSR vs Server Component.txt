@@ -1,0 +1,31 @@
+CSR
+
+1. JS bundle gets downloaded and till that user sees blank screen
+2. After that through Render Shell process the page will get displayed on the screen. This also includes initialization of states and useEffects. This is also called as 
+3. First Paint and in this process the page becomes interactive.
+4. Once the page is loaded DB query will get executed to fetch the data
+5. Once the data is fetched, the page will get re-rendered. This process concludes with the ready page along with the content.
+
+Disadvantage :-
+1. Bad for SEO
+2. Bad User Experience as user sees blank screen
+
+
+SSR (client + server)
+
+1. The DB query will get triggered on the server and then the Render Shell process will be done on the server itself.
+2. The First Paint take place.
+3. The generated HTML/CSS file will then passed to the browser and that will get rendered. After that the JS will get downloaded and Hydration process will get initialized to make the complete page interactive.
+4. Additional DB query if required.
+5. Re-render after getting new data.
+
+Disadvantage :-
+1. If there are 200 components each of size 1 MB then the JS bundle size will be of 200 MB. And if out of 200 only 50 components are interactive and rest of them are only data view component then we are still downloading 200 mb JS bundle
+
+
+Server Components (only server)
+
+1. The process will going to be same as above SSR just the bundle size will get reduce and the Hydration process time will get reduced.
+2. We need to explicitly mention like which component is client component or server component.
+3. By default under app/ directory in Next JS is considered as a "Server Component" and if we want to create a client component then we have to use this keyword -> "use client"
+4. Server component won't have any JS.

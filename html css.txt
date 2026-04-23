@@ -1,0 +1,83 @@
+------------------------------------------------------ HTML ------------------------------------------------------------------
+
+1. What is Doctype ? Purpose of Doctype ? What happens if we don't use Doctype ?
+-> Doctype  is a declaration that tells the browser which version of HTML the document is written in.
+Purpose :-
+    - It ensures the browser renders the page in standards mode rather than quirks mode.
+    - Standards mode means the browser follows modern HTML and CSS specifications.
+    - Quirks mode is a fallback for older, non-standard code (like legacy websites).
+If we Don't use :-
+    - The browser will switch to quirks mode, which : 
+        - Can cause inconsistent rendering across browsers.
+        - CSS layouts may break, especially with box models and positioning.
+    - Modern features might not work as expected.
+
+2. Heading Tags ?
+-> Heading tags are from H1 to H6. Search engines use the headings to index the structure and content of your web pages.
+
+3. What is meta element ?
+-> The <meta> element is typically used to specify the character set, page description, keywords, author of the document, and viewport settings.
+The metadata will not be displayed on the page, but is used by browsers (how to display content or reload page), by search engines (keywords), and other web services.
+
+4. What are Semantic Elements?
+-> A semantic element clearly describes its meaning to both the browser and the developer.
+Purpose :-
+    - Screen readers and assistive technologies can better interpret the structure of the page.
+    - Search engines understand the content hierarchy and context, improving ranking.
+
+5. What is label element along with it's usage ?
+-> 
+- A <label> tag defines a label for many form elements. 
+- A <label> is also useful for screen-reader users, because the screen-reader will read out loud the label when the user focuses on the input element. 
+- A <label> element also helps users who have difficulty clicking on very small regions (such as radio buttons or checkboxes) - because when the user clicks the text within the <label> element, it toggles the radio button/checkbox.
+
+6. What are HTML5 web apis ?
+->
+- Geolocation :- This API is used to access the current location of a user (with latitude and longitude).
+- Drag and Drop :- This API enables you to use drag-and-drop features in browsers.
+- Web Storage :- This API has mechanisms to let browsers store key/value pairs (in a more intuitive way than cookies).
+- Web Workers :- This API allows a JavaScript to run in the background, without affecting the performance of the page. Users can continue to do whatever they want: clicking, selecting things, etc., while the web worker runs in the background.
+- Server Sent Events :- This API allows a web page to automatically get updates from a server.
+- Canvas :- This API lets you draw graphics, on the fly, via JavaScript.
+
+7. What is Web Worker ?
+-> A web worker is an external JavaScript file that runs in the background, independently of other scripts, without affecting the performance of the page. You can continue to do whatever you want: clicking, selecting things, etc., while the web worker runs in the background.
+Web workers are useful for heavy code that can't be run on the main thread, without causing long tasks that make the page unresponsive.
+Since web workers are in external .js files, they do not have access to the following JavaScript objects:
+    - The window object
+    - The document object
+    - The parent object
+
+
+
+------------------------------------------------------ CSS ------------------------------------------------------------------
+
+1. CSS Selectors ?
+-> We can divide CSS selectors into five categories:
+    - Simple Selectors (class, id)
+    - Combinator Selectors
+    - Pseudo-class Selectors
+    - Pseudo-element Selectors
+    - Attribute Selectors
+
+2. What is Box Model ?
+-> The CSS box model is essentially a box that wraps around every HTML element. Every box consists of four parts: content, padding, borders and margins.
+
+3. Display none vs Visibility hidden
+-> When using display: none; the element is completely hidden from the document flow and does not take up any space.
+   When using visibility: hidden, the element will be hidden, but it will still take up the same space as if it was visible
+
+4. Different types of Positions ?
+->
+a. static :- All HTML elements are positioned static by default.
+b. relative :- An element with position: relative; is positioned relative to its normal position in the document flow. Setting the top, right, bottom, and left properties will cause the element to be adjusted away from its normal position.
+c. absolute :- An element with position: absolute; is positioned relative to the nearest positioned ancestor (with position other than static). However; if an absolute positioned element has no positioned ancestors, it uses the document body, and moves along with page scrolling.
+d. fixed :- An element with position: fixed; is positioned relative to the viewport, which means it always stays in the same place even if the page is scrolled. The top, right, bottom, and left properties are used set the final location of the element.
+e. sticky :- An element with position: sticky; toggles between a relative and fixed position, depending on the scroll position.
+A sticky element is positioned relative until a certain scroll position is reached - then it "sticks" in that place (like position:fixed).
+
+5. What is pseudo-classes ?
+-> It is to define a style for a special state of an element.
+
+6. What is pseudo-elements ?
+-> It is to style a specific part of an element.
