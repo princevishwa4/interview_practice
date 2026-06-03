@@ -1,0 +1,3 @@
+tsc --init --> tsconfig.json
+tsc app.ts --> compile file
+tsc --watch --> keep compiling while we code in ts

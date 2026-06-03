@@ -1,0 +1,120 @@
+<!-- Debouncing is a strategy that ensures a function is triggered after specific amount of time has passed since the last time it was called.  -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deboumcing</title>
+</head>
+<body>
+    <input type="text" />
+    <script>
+        // const inputElement = document.querySelector('input');
+
+        // function handleInput(e) {
+        //     console.log(e.target.value)
+        // }
+
+        // function debounceInputHandler(cb, delay) {
+        //     let timerId = null;
+        //     return function() {
+        //         const context = this;
+        //         const args = arguments;
+        //         // console.log('arguments :- ', arguments)
+        //         // console.log('context :- ', context)
+        //         clearTimeout(timerId);
+        //         timerId = setTimeout(() => {
+        //             cb.apply(context, args);
+        //         }, delay);
+        //     }
+        // }
+
+        // const enhancedHandleInput = debounceInputHandler(handleInput, 500);
+        // inputElement.addEventListener('input', enhancedHandleInput);
+
+        // OR
+
+        // const inputElement = document.querySelector('input');
+
+        // function handleInput(e) {
+        //     console.log(e.target.value)
+        // }
+
+        // function debounceInputHandler(cb, delay) {
+        //     let timerId = null;
+        //     return function(...args) {
+        //         const context = this;
+        //         // console.log('args :- ', args)
+        //         // console.log('context :- ', context)
+        //         clearTimeout(timerId);
+        //         timerId = setTimeout(() => {
+        //             cb.apply(context, args);
+        //         }, delay);
+        //     }
+        // }
+
+        // const enhancedHandleInput = debounceInputHandler(handleInput, 500);
+        // inputElement.addEventListener('input', enhancedHandleInput);
+        
+        // OR
+
+        // const inputElement = document.querySelector('input');
+
+        // function handleInput(e) {
+        //     console.log(e.target.value)
+        // }
+
+        // function debounceInputHandler(cb, delay) {
+        //     let timerId = null;
+        //     return function(...args) {
+        //         clearTimeout(timerId);
+        //         timerId = setTimeout(() => {
+        //             cb(...args);
+        //         }, delay);
+        //     }
+        // }
+
+        // const enhancedHandleInput = debounceInputHandler(handleInput, 500);
+        // inputElement.addEventListener('input', enhancedHandleInput);  
+        
+        // -----------------------------------------------------------------------------------------------------
+
+        // Leading :- Executes immediately on the first call, then ignores the subsequent calls until the wait time passes
+        // Trailing :- Executes only after the last call in the burst of calls
+        const inputElement = document.querySelector('input');
+
+        function handleInput(e) {
+            console.log(e.target.value)
+        }
+
+        function debounceInputHandler(cb, delay, options = { leading: true, trailing: true }) {
+            let timeout = null;
+            let isLeadingInvoked = false;
+            return function(...args) {
+                const context = this;
+                if (timeout) {
+                    clearTimeout(timeout);
+                }
+
+                if (options.leading && !timeout) {
+                    cb.apply(context, args);
+                    isLeadingInvoked = true;
+                } else {
+                    isLeadingInvoked = false;
+                }
+
+                timeout = setTimeout(() => {
+                    if (options.trailing && !isLeadingInvoked) {
+                        cb.apply(context, args);
+                    }
+
+                    timeout = null;
+                }, delay);
+            }
+        }
+
+        const enhancedHandleInput = debounceInputHandler(handleInput, 500);
+        inputElement.addEventListener('input', enhancedHandleInput); 
+    </script>
+</body>
+</html>

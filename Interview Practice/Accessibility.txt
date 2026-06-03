@@ -1,0 +1,91 @@
+Accessibility in web development means enabling as many people as possible to use websites, even when those people's abilities are limited in some way.
+
+Visually Impaired
+1. Label :- If there is only input type text in the form then that is inaccessible because we don't know what to do in that. So usually we have a label for that like name.
+<label>Name : </label>
+<input type="text" />
+Now we can visually see that we have to put in our name. But this is not accessible to the people who can't see because there is no link between the label and input. So if we use any type of screen reader, it will not tell me that it is a name input or even if I click on Name label it will not focus on input. So for that we use for attribute in the label which will take the id from the input which helps to map label with the input. 
+<label for="name">Name : </label>
+<input id="name" type="text" />
+Now then screen reader will tell me that this is the name input and if I try to click on the Name label then it will focus on input box.
+
+If we don't have a label, then in that scenario we can use aria-label attribute and this will going to act exactly same as above.
+<input aria-label="Name" type="text" />
+
+Now there can be multiple types to provide the label like :-
+1. aria-labelledby
+2. aria-label
+3. title
+4. placeholder
+5. aria-placeholder
+
+2. If there is any popup or toast message after performing any kind of action like saving stuff or booking something or etc. then I can see that toast message easily but someone with visually impaired cannot see that toast message and hence they don't get any feedback like the data was saved or something else.
+<form data-form>
+    <input placeholder="Name" type="text" />
+    <button>Save</button>
+</form>
+<div data-container></div>
+<script>
+    const form = document.querySelector("[data-form]");
+    form.addEventListener('submit', e => {
+        e.preventDefault();
+        const container = document.querySelector("[data-container]");
+        const div = document.createElement("div");
+        div.innerText = "Saved Data";
+        container.append(div);
+    })
+</script>
+In this scenario we should always use aria-live attribute to the container in which or is responsible for showing toast message. Now the aria-live attribute has 3 values
+a. Off :- It's the default value which will do nothing.
+b. Assertive :- It is used when we have to show the updates which are of high priority.
+c. Polite :- It will notify users of updates but generally do not interrupt the current task.
+<form data-form>
+    <input placeholder="Name" type="text" />
+    <button>Save</button>
+</form>
+<div data-container aria-live="polite"></div>
+<script>
+    const form = document.querySelector("[data-form]");
+    form.addEventListener('submit', e => {
+        e.preventDefault();
+        const container = document.querySelector("[data-container]");
+        const div = document.createElement("div");
+        div.innerText = "Saved Data";
+        container.append(div);
+    })
+</script>
+
+
+    Color Blindness :-
+        1. We should always keep our color constrast in specific range so that someone with color blindness can also differentiate or use our website. For that we can go to our dev tools and in the color picker under the style tab we have an option of contrast ratio we have ratio options like AA and AAA with specific values and we have to select the color whose value should meet the criteria of both the contrast ratio which can help people with color blindness.
+        2. We do have one more option of Emulate vision deficiencies under the rendering tab so that once our website is completed we should use the emulation to check whether our website is accessible with all the different types of vision deficiencies or not.
+        3. We should always test our website in the high contrast mode.
+
+3. Image tag should always contain alt attribute so that the screen reader can read what the image is all about.
+4. Always use semantic tags and wrap everything under the main tag, use nav for navigation, aside for aside content, section, article, heading tags like h1, h2. h1 Tage should always be used only once in the complete webpage and the rest of the heading tags should be used in hierarchy. Never use heading tags to increase the size of the content because this are really important for the screen readers really rely on the heading tags to help them navigate through the website. Make sure if we want button then always use button and don't put onClick listener on the div tags because this really unaccessible for the people and it won't work very well with the keyboard navigation.
+5. When using link then don't just use text like click me or click here, make it more descriptive
+<a href="#">Click me</a> to view something ------> <a href="#">view the something</a>
+
+
+
+Keyboard Accessibility
+1. We can use tabindex so that we can navigate using keyboard through tab. tabindex should never contain positive number because the first tab after page load it will going to focus on that element. tabindex should always have either 0 or -1. 0 means normal tab navigation, -1 means skipping while tab navigation.
+2. Tab navigation will add the outline on the elements which might be annoying on the website so for that we can remove outline and add focus on the element. Focus can add outline either by navigating through mouse or keyboard, focus-visible can also add the outline but this will be added only through keyboard which improves accessibility. 
+
+
+
+Audio Imapaired
+1. We should always add the caption to the videos.
+2. Add a description about the video below it.
+3. Add different type of contact like live chat or some other type of contact way which does not include audio.
+
+
+
+Mobility Impaired
+1. Elements should have proper space in between so that someone which big fingers or shaky hands can click the specific elements properly.
+2. Area of the clickable element should be big enough so that the user can click it properly.
+
+
+Other Impaired
+1. Use autofocus for focusing first input
+2. Use prefer-reduce-motion to remove the animation
