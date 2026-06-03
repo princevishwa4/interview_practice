@@ -27,6 +27,8 @@ const sayHello = () => console.log('Arrow Function');
 // 2. 'arguments' keyword ==> This are not available in the arrow functions
 // 3. Hoisting ==> If we will try to access the function before initialization then it will throw reference error because in the skimming process the variable is assigned with the undefined
 // 4. This keyword ==> Arrow function is global scoped so "this" in the arrow function will going to point the window object, while in the normal function scenario it will going to point the parent/caller
+// 5. Constructur (new) ==> Not allowed in arrow function but allowed in normal function
+// 6. call/apply/bind ==> works with normal function but not with arrow function
 
 // Callback Function
 function callme(cb) {

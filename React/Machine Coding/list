@@ -5,17 +5,17 @@ Links :-
 
 1. Weather App
 2. Todo List
-3. Theme Mode
-4. Star Rating
+3. Theme Mode -> Done
+4. Star Rating (Whole number -> Done, Percent -> Pending)
 5. Snake and Ladder Board
 6. Responsive Layout
 7. Quiz App
-8. Progress Bar
+8. Progress Bar -> Done
 9. Pop-Over
 10. Password Generator
-11. Pagination
+11. Infinite Scroll
 12. OTP Login
-13. Nested Components
+13. Move data from 1 screen to another screen (left to right or right to left) -> Done
 14. Navbar
 15. Modal Component
 16. Like Button
@@ -23,13 +23,38 @@ Links :-
 18. Accordion
 19. Calculator
 20. Carousel
-21. Countdown Timer
+21. Timer (start, stop, reverse, reset) -> Done
 22. Custom Hook
 23. Drag and Drop Items
 24. Dropdown Component
 25. Form Validation
-26. Grid Lights
+26. Grid Lights -> Done
 27. Login Form
 28. Chat Application
-29. Infinite Scroll
+29. Pagination
 30. JWT authentication -> https://www.syncfusion.com/blogs/post/implement-jwt-authentication-in-react
+31. File Explorer
+32. Debounce Search Input (with, without custom hook) -> Done
+33. Autocomplete / Typeahead
+34. Multi-step form
+35. Leading, Trailing debounce + cancel method
+36. Nested Comment System
+37. Kanban Board (Drag & Drop)
+38. Toast Notification System
+39. Search with highlight matching
+40. Password strength indicator
+41. Form builder (config driven)
+42. Chips / Tags input
+43. Shopping Cart
+44. API Cache System
+45. Polling UI
+46. Virtualized List
+47. Memoized Table
+48. Custom Hook Library
+    a. useDebounce
+    b. useThrottle
+    c. usePrevious
+49. Calendar Component
+50. Resizeable Panels
+51. Undo / Redo system
+52. Concurrent API calls manager

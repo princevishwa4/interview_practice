@@ -206,3 +206,45 @@ Synthetic events are objects that act as a cross-browser wrapper around a native
 34. How does React handles circular dependencies in useEffect ?
 35. useState() vs useReducer ? When to choose which ?
 36. Optimistic updates vs Pessimistic updatesin React ?
+
+37. What is React Fibre ?
+-> Before Fiber, React used the "Stack Reconciler".
+- It processed updates synchronously and recursively down the component tree.
+- Once a render started, it could not be stopped until it completed.
+- If a component tree was deep, a complex render would block the browser's single main thread. This caused noticeable UI lag, dropped animation frames, and frozen input fields
+
+Fiber changed the Virtual DOM structure from a basic tree into a singly linked list of "fiber nodes". Each fiber node represents a "unit of work" corresponding to a React component. Because it uses a linked list instead of a recursive call stack, React can pause, resume, or discard rendering work at any time.
+a. The Two-Phase Architecture
+- The Render Phase (Asynchronous & Interruptible): React traverses the fiber tree and computes what changes are needed. If a high-priority task (like a user typing or an animation) comes in mid-render, React will pause this phase, handle the user input, and then resume or restart the render phase.
+- The Commit Phase (Synchronous & Uninterruptible): Once the entire render phase finishes, React enters the commit phase to apply those calculated changes directly to the real DOM in a single, fast pass. This ensures the UI never looks partially updated
+
+38. What is batching ?
+-> Batching is a performance optimization feature in React that groups multiple state updates together into a single re-render of your component.
+Instead of triggering a brand-new render for every single state update, React waits until all state changes inside an event handler are processed before updating the UI.
+
+// React 17 behavior:
+setTimeout(() => {
+  setCount(c => c + 1); // Causes Render #1
+  setFlag(f => !f);    // Causes Render #2
+}, 1000);
+
+// React 18+ behavior (Automatic Batching):
+setTimeout(() => {
+  setCount(c => c + 1); 
+  setFlag(f => !f);    
+  // React batches these into exactly ONE re-render!
+}, 1000);
+
+How to Opt-Out of Batching
+-> If your application absolutely requires a state update to immediately force a DOM render before the next line of code runs, you can opt-out of batching using flushSync from the react-dom package.
+
+import { flushSync } from 'react-dom';
+
+function handleClick() {
+  flushSync(() => {
+    setCount(c => c + 1); // Forces an immediate, separate re-render
+  });
+  setFlag(f => !f); // Flushes independently later
+}
+
+Note: Using flushSync is generally discouraged because it hurts performance. It should only be used when dealing with direct DOM measurements or third-party non-React libraries.

@@ -14,6 +14,24 @@ function flatArr(arr) {
 
 console.log(flatArr(arr));
 
+// OR
+
+// const arr = [1, 2, 3, [4, 5, [6], 7], 8, 9, 10];
+
+// const output = [];
+// function flatArr(arr) {
+//     arr.forEach((el) => {
+//         if (Array.isArray(el)) {
+//             flatArr(el);
+//         } else {
+//             output.push(el);
+//         }
+//     });
+// }
+
+// flatArr(arr);
+// console.log(output)
+
 // ---------------------------------------------------------------------------------------------------------------
 
 const str = "hello world";
@@ -78,3 +96,64 @@ const oldUser = { name: "Alice", role: "User" };
 const newUser = { name: "Alice", role: "Admin", bio: "Hello!" };
 
 console.log(getDiff(oldUser, newUser));
+
+// -------------------------------------------------------------------------------------------------------
+
+const calculator = {
+  result: 0,
+  add(value) {
+    this.result += value;
+  },
+  subtract(value) {
+    this.result -= value;
+  },
+  multiply(value) {
+    this.result *= value;
+  },
+  divide(value) {
+    if (value === 0) throw new Error("Division by zero");
+    this.result /= value;
+  },
+  getResult() {
+    return this.result;
+  },
+  reset() {
+    this.result = 0;
+  }
+};
+
+// ✅ Usage
+calculator.add(10);
+calculator.subtract(3);
+console.log(calculator.getResult()); // 7
+
+
+// OR
+
+
+const calculator2 = {
+  result: 0,
+  add(value) {
+    this.result += value;
+    return this;
+  },
+  subtract(value) {
+    this.result -= value;
+    return this;
+  },
+  multiply(value) {
+    this.result *= value;
+    return this;
+  },
+  divide(value) {
+    if (value === 0) throw new Error("Division by zero");
+    this.result /= value;
+    return this;
+  },
+  getResult() {
+    return this.result;
+  }
+};
+
+const result = calculator.add(10).subtract(2).multiply(3).divide(4).getResult();
+console.log(result); // 6

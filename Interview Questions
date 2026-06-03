@@ -87,3 +87,163 @@ Capgemini
 10. CI/CD tools
 11. Internal/External storages like Firebase
 12. Cloud Services
+
+
+Infogain
+1. Hoisting, error types, reassignment to const and how reassignment in setState works
+2. Shallow, Deep copy
+3. Promise, different methods of Promise, fulfilled vs settled, different promise states
+4. Execution flow of JS, event loop
+5. Different ways of optimizing React app
+6. useMemo vs useCallback
+7. Virtual DOM
+8. React Fibre
+9. Transitive Dependency
+10. Reconciliation, Diffing, if the tree is large then how diffing algo works in the efficient manner ?
+11. Redux, flow of redux, middleware, explain button clicked flow in redux
+12. Redux vs RTK, why RTK was introduced, what is proxy while consoling state in the reducer, state mutability
+13. impure vs pure function
+14. build tool, transpiler, react element, custom -> react element or JSX to JS
+15. guess the output
+console.log('start');
+const promise1 = Promise.resolve().then(() => {
+  console.log('promise1');
+  const timer2 = setTimeout(() => {
+    console.log('timer2')
+  }, 0)
+});
+const timer1 = setTimeout(() => {
+  console.log('timer1')
+  const promise2 = Promise.resolve().then(() => {
+    console.log('promise2')
+  })
+}, 0)
+console.log('end')
+16. Task
+    a. Render 4 cards (initially and then make it dynamic), mark some kind of identification to track whether the specific card is clicked or not
+    b. Show text message like which card is clicked
+    c. Once all the cards are clicked then show :- All cards showed
+    d. Add reset button to reset the stats
+
+
+
+1. Stateful, Stateless APIs
+2. Async, Sync APIs
+3. WebSockets
+4. REST, SOAP
+5. Security related questions
+6. Callback is Sync or Async
+7. Generate form from this :-
+  const formConfig = [
+    {
+      name: 'country',
+      label: 'Country',
+      type: 'select',
+      options: [
+        { label: 'India', value: 'india' },
+        { label: 'USA', value: 'usa' },
+        { label: 'Other', value: 'other' },
+      ],
+      validation: { required: true },
+    },
+    {
+      name: 'customCountry',
+      label: 'Enter Country Name',
+      type: 'text',
+      dependsOn: 'country',
+      showIf: 'other',
+    },
+    {
+      name: 'state',
+      label: 'State (India)',
+      type: 'select',
+      dependsOn: 'country',
+      showIf: 'india',
+      options: [
+        { label: 'Maharashtra', value: 'maharashtra' },
+        { label: 'Rajasthan', value: 'rajasthan' },
+        { label: 'Gujarat', value: 'gujarat' },
+      ],
+    },
+    {
+      name: 'usaState',
+      label: 'State (USA)',
+      type: 'select',
+      dependsOn: 'country',
+      showIf: 'usa',
+      options: [
+        { label: 'California', value: 'california' },
+        { label: 'Texas', value: 'texas' },
+        { label: 'Florida', value: 'florida' },
+      ],
+    },
+    {
+      name: 'postalCode',
+      label: 'Postal Code',
+      type: 'text',
+      dependsOn: ['state', 'usaState'],
+      showIf: (values) => values.state || values.usaState,
+      validation: {
+        required: true,
+        pattern: /^[0-9]{4,8}$/,
+        message: 'Postal code must be 4–8 digits',
+      },
+    },
+  ];
+8. // Child component that receives a function prop
+ 
+const Button = React.memo(({ onClick, text }) => {
+
+  alert(`Child ${text} button rendered`);
+
+  return <button onClick={onClick}>{text}</button>;
+
+});
+ 
+// Parent component 
+
+function parentComp() {
+
+  const [count1, setCount1] = useState(0);
+  const [count2, setCount2] = useState(0);
+ 
+  const handleClick1 = () => {
+    setCount1(count1 + 1);
+  };
+ 
+  const handleClick2 = useCallback(() => {
+    setCount2(count2 + 1);
+  }, []);
+ 
+  alert("Parent rendered");
+
+  return (
+<div>
+<h2>Parent Comp:</h2>
+<p>Count 1: {count1}</p>
+<p>Count 2: {count2}</p>
+<Button onClick={handleClick1} text="Button 1" />
+<Button onClick={handleClick2} text="Button 2" />
+</div>
+
+  );
+
+}
+
+9. function X(){
+  return ("X")
+}
+function Y(){
+  return ("Y")
+}
+function Z(){
+return ("Z")
+}
+
+
+
+
+
+
+
+ 

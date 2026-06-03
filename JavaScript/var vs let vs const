@@ -4,10 +4,10 @@
 //     2. let :- Block Scoped
 //     3. const :- Block Scoped
 
-// Reassignment :-
+// Reassignment/ReInitialization :-
 //     1. var :- Yes
 //     2. let :- Yes
-//     3. const :- No
+//     3. const :- No --> TypeError - Assignment to the const variable
 
 // Hoisting :-
 //     1. var :- Yes, will get undefined if we will try to access before initialization
@@ -16,5 +16,38 @@
 
 // Redeclaration :-
 //     1. var :- Yes, within the same scope
-//     2. let :- No, within the same scope
-//     3. const :- No, within the same scope
+//     2. let :- No, within the same scope --> SyntaxError - Identifier 'a' has already been declared | Yes, in different scope 
+//     3. const :- No, within the same scope --> SyntaxError - Identifier 'a' has already been declared | Yes, in different scope
+
+// Shadowing
+function test() {
+    let a = "hello";
+    if (true) {
+        let a = "hi";
+        console.log(a);
+    }
+    console.log(a);
+}
+test();
+
+// Legal Shadowing
+function test() {
+    var b = "hello";
+    if (true) {
+        let b = "hi";
+        console.log(b);
+    }
+    console.log(b);
+}
+test();
+
+// Illegal Shadowing
+// function test() {
+//     let b = "hi";
+//     if (true) {
+//         var b = "hello";
+//         console.log(b);
+//     }
+//     console.log(b);
+// }
+// test();

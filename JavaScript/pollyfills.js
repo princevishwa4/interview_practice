@@ -28,10 +28,9 @@ console.log(arr.myFilter(item => item > 3));
 
 // Reduce
 Array.prototype.myReduce = function(callback, initialValue) {
-  let accumulator = initialValue === undefined ? this[0] : initialValue;
-  let startIndex = initialValue === undefined ? 1 : 0;
-  for (let i = startIndex; i < this.length; i++) {
-    accumulator = callback(accumulator, this[i], i, this);
+  let accumulator = initialValue;
+  for (let i = 0; i < this.length; i++) {
+    accumulator = accumulator ? callback(accumulator, this[i], i, this) : this[i];
   }
   return accumulator;
 };
@@ -46,6 +45,40 @@ Array.prototype.myForEach = function(callback) {
 };
 arr.myForEach(item => console.log(item));
 
+// Call
+Function.prototype.myCall = function(context = {}, ...args) {
+  if (typeof this !== 'function') {
+    throw new Error(this + ' It is not callable');
+  }
+
+  context.fun = this;
+  context.fun(...args);
+}
+
+// Apply
+Function.prototype.myApply = function(context = {}, args = []) {
+  if (typeof this !== 'function') {
+    throw new Error(this + ' It is not callable');
+  }
+  if (!Array.isArray(args)) {
+    throw new Error('CreateListFromArrayLike called on non-object')
+  }
+
+  context.fun = this;
+  context.fun(...args);
+}
+
+// Bind
+Function.prototype.myBind = function(context = {}, ...args) {
+  if (typeof this !== 'function') {
+    throw new Error(this + ' It is not callable');
+  }
+
+  context.fun = this;
+  return function(...rem) {
+    return context.fun(...args, ...rem);
+  }
+}
 
 // Deep Clone
 function deepClone(obj) {

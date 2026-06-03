@@ -1,5 +1,6 @@
 // Call
 // Call() method of Function instance calls this function with a given this value and arguments provided individually
+// Call() is a function which substitutes another object for the current object
 function printer(city, country) {
     console.log(`My name is ${this.name} and I'm ${this.age} years old. I live in ${city}, ${country}`)
 }

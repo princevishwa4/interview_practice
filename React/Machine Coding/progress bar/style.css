@@ -1,0 +1,35 @@
+* {
+  padding: 0;
+  margin: 0;
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.bar {
+  width: 500px;
+  height: 20px;
+  border: 1px solid black;
+  border-radius: 25px;
+  position: relative;
+  text-align: center;
+  overflow: hidden;
+}
+
+.bar span {
+  position: absolute;
+  z-index: 2;
+}
+
+.fill_color {
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: #00c251;
+  z-index: 1;
+}
