@@ -1,0 +1,348 @@
+1. What is Jest?
+-> Jest is a powerful tool for testing JavaScript applications, particularly React and React Native projects. With Jest, developers can perform unit tests, snapshot tests, and coverage reporting to ensure that their code is functioning correctly.
+
+2. Why do we need Jest?
+-> Jest is required to automate the testing process and ensure that our application functions as planned. It assists us in writing test cases for our application and ensuring that the code is valid and runs as planned.
+
+3. What is a test suite in Jest?
+-> a test suite is a collection of test cases that are related to a specific unit or feature of an application. A test suite is created using the describe function in Jest, which takes two arguments: a string that describes the test suite, and a callback function that contains the individual test cases.
+
+describe('sum function', () => {
+  // individual test cases go here
+});
+
+4. What is a test case in Jest?
+-> A test case is a piece of code that defines a specific behaviour or scenario to be tested. It typically consists of one or more assertions that verify that the actual output of a function or module matches the expected output.
+
+5. What is a snapshot test in Jest?
+-> Snapshot tests are useful in ensuring that the output remains consistent across code changes. Jest provides a toMatchSnapshot matcher for creating snapshot tests.
+
+6. What is the difference between describe and it in Jest?
+-> 
+describe	                                                    it
+Used to group related test cases together	                    Used to define an individual test case
+Can contain multiple it blocks	                                Can only contain a single test assertion
+Can be nested to create a hierarchy of test suites	            Cannot be nested
+Can have hooks (beforeAll, afterAll, beforeEach, afterEach)	    Cannot have hooks
+Typically used to group tests by functionality or component	    Typically used to test a single behaviour or condition
+
+7. What is a setup function in Jest?
+-> A setup function in Jest is a special type of function that is executed before or after a set of tests, allowing you to set up the testing environment
+    a. beforeAll
+    b. beforeEach
+    c. afterEach
+    d. afterAll
+
+8. What kinds of matchers are there in Jest?
+-> Some of the most commonly used matchers in Jest include toBe, toEqual, toMatch, toBeDefined, toBeFalsy, toBeTruthy, toBeNull, toContain, toHaveLength, toHaveProperty, toBeInstanceOf, and toThrow.
+
+9. What function does the Jest toHaveBeenCalledWith matcher do?
+-> The toHaveBeenCalledWith matcher in Jest is a powerful tool for asserting that a function has been called with specific arguments.To use the toHaveBeenCalledWith matcher, you first need to create a mock function using the Jest.fn() method. This creates a new, empty mock function that you can use to track calls to the function.
+
+Once you have your mock function, you can call it with some arguments, and then use the toHaveBeenCalledWith matcher to assert that the function was called with those specific arguments. This is useful when you want to ensure that a function is being called with the correct arguments, or when you want to test that a function is being called with a specific set of inputs.
+
+Jest provides a variety of other matchers and assertion functions that you can use to test your code, including:
+
+expect:This is the primary assertion function in Jest, and is used to make assertions about your code.
+toBe:This matcher is used to compare values using strict equality (===).
+toEqual:This matcher is used to compare values using deep equality, and can be used to compare objects and arrays.
+toThrow:This matcher is used to assert that a function throws an error when called.
+not:This modifier can be used to negate a matcher, for example expect(foo).not.toBe(bar).
+
+10. How do you handle mocking of external API calls in Jest tests?
+-> 
+const mockGetData = Jest.fn(() => {
+  return {
+    data: {
+      id: 1,
+      name: 'John Doe',
+      email: 'johndoe@example.com',
+    },
+  };
+});
+
+test('should return the correct user data', async () => {
+  const result = await getUserData();
+  expect(result).toEqual({
+    id: 1,
+    name: 'John Doe',
+    email: 'johndoe@example.com',
+  });
+});
+
+mockResolvedValue → success
+mockRejectedValue → failure
+
+11. How do you configure Jest to run tests in parallel?
+-> To configure Jest to run tests in parallel, you need to set the maxWorkers option in the Jest configuration. This option specifies the maximum number of workers the Jest CLI will spawn when running tests. By default, Jest runs tests serially in the same process (without spawning workers).
+
+For example, if you want to run tests in parallel with 4 workers, you can add the following to your package.json file:
+"jest": { "maxWorkers": 4 }
+Or you can run Jest with the following command line argument:
+jest --maxWorkers=4
+
+12. What is jest.fn() and how is it different from mocking a module?
+-> 
+🔹 jest.fn() creates a mock function to track how a function is used.
+🔹 jest.mock() is used to mock an entire module or library (like axios, react-router-dom, etc.)
+
+13. How do you test a functional component that fetches data?
+-> 
+📦 You mock the API (e.g., using jest.mock or msw)
+🕒 Then use findBy... or waitFor to wait for the DOM to update after fetch.
+
+const mockData = [{ name: "React" }];
+jest.mock("./api", () => ({
+  fetchData: jest.fn(() => Promise.resolve(mockData)),
+}));
+
+await waitFor(() => {
+  expect(screen.getByText("React")).toBeInTheDocument();
+});
+
+14. What's the difference between getBy, queryBy, and findBy?
+-> 
+getBy: check for required element
+queryBy: check if element doesn’t exist
+findBy: wait for element after async change
+
+15. How do you test useEffect that fetches on mount?
+-> 
+Mock the API call
+Use render() + waitFor() to check updated UI
+Use findByText() for async content
+
+16. How to test state updates (e.g., toggle, increment)?
+->
+🖱 Use userEvent.click() or fireEvent to simulate action
+🔍 Then check the result using screen.getByText, etc.
+
+userEvent.click(screen.getByText("Toggle"));
+expect(screen.getByText("Toggled On")).toBeInTheDocument();
+
+17. How do you test a form with validations?
+->
+Use getByLabelText() to fill inputs
+Submit with userEvent.click()
+Assert error messages or success message
+
+userEvent.type(screen.getByLabelText("Email"), "wrong");
+userEvent.click(screen.getByText("Submit"));
+expect(screen.getByText("Invalid email")).toBeVisible();
+
+18. How to test conditional rendering in a component?
+->
+Trigger change (e.g., button click)
+Use queryByText() to assert presence/absence of elements
+
+expect(screen.queryByText("Logged In")).not.toBeInTheDocument();
+userEvent.click(screen.getByText("Login"));
+expect(screen.getByText("Logged In")).toBeInTheDocument();
+
+19. How do you test components using Context API?
+-> Wrap your component with your test version of the Context Provider:
+render(
+  <AuthContext.Provider value={{ isLoggedIn: true }}>
+    <Dashboard />
+  </AuthContext.Provider>
+);
+
+20. How to mock useNavigate() from react-router-dom?
+->
+const mockNavigate = jest.fn();
+
+jest.mock("react-router-dom", () => ({
+  ...jest.requireActual("react-router-dom"),
+  useNavigate: () => mockNavigate,
+}));
+
+Then test if navigation was triggered:
+expect(mockNavigate).toHaveBeenCalledWith("/dashboard");
+
+21. What is test() vs it()?
+-> 👉 Same thing ✅ just aliases
+
+test("desc", fn)
+it("desc", fn)
+
+22. What is expect()?
+-> 👉 Assertion API -> expect(value).toBe(5);
+
+23. Difference between spy and mock?
+-> 
+Mock                Spy
+completely replace  track existing function
+jest.fn()           jest.spyOn()
+
+24. What is render()?
+-> 👉 renders component into virtual DOM -> render(<Component />)
+
+25. Difference between queries
+->
+Query           Behavior
+getBythrows     error if not found
+queryBy         returns null
+findBy          async (waits)
+
+26. fireEvent vs userEvent
+->
+fireEvent           userEvent
+basic               realistic
+low-level           high-level interactions
+
+27. How to test click?
+->
+fireEvent.click(button)
+expect(handler).toHaveBeenCalled()
+
+28. How to test input?
+-> fireEvent.change(input, { target: { value: "abc" } })
+
+29. How to test conditional rendering?
+-> expect(screen.queryByText("Error")).not.toBeInTheDocument();
+
+30. How to test async UI?
+-> await waitFor(() => {
+  expect(screen.getByText("Loaded")).toBeInTheDocument();
+});
+
+31. toBe vs toEqual
+-> 
+toBe (Strict Equality): Uses Object.is to compare values. It checks if two values point to the exact same memory location. This is equivalent to ===.
+toEqual (Deep Equality): Checks the keys and values of arrays or objects recursively. It passes if two different objects contain identical data.
+
+const obj1 = { id: 1 };
+const obj2 = { id: 1 };
+// Passes because the data is identical
+expect(obj1).toEqual(obj2); 
+// Fails because they are different objects in memory
+expect(obj1).toBe(obj2); 
+
+32. Example of testing
+->
+// --------------------------------------------------------------------- src/components/Button.js
+
+import React from 'react';
+
+function Button({ label, onClick }) {
+    return <button onClick={onClick}>{label}</button>;
+}
+
+export default Button;
+
+
+// ---------------------------------------------------------------------- src/components/Button.test.js
+
+import React from 'react';
+import { render, screen, fireEvent } from '@testing-library/react';
+import Button from './Button';
+
+test('renders button with correct label', () => {
+    render(<Button label="Click Me" />);
+    const buttonElement = screen.getByText(/click me/i);
+    expect(buttonElement).toBeInTheDocument();
+});
+
+test('calls onClick handler when button is clicked', () => {
+    const handleClick = jest.fn(); // Mock function
+    render(<Button label="Click Me" onClick={handleClick} />);
+
+    const buttonElement = screen.getByText(/click me/i);
+    fireEvent.click(buttonElement);
+
+    expect(handleClick).toHaveBeenCalledTimes(1);
+});
+
+// -------------------------------------------------------------------------- src/components/FetchButton.js
+
+import React, { useState } from 'react';
+
+function FetchButton({ fetchData }) {
+    const [data, setData] = useState(null);
+
+    const handleClick = async () => {
+        const result = await fetchData();
+        setData(result);
+    };
+
+    return (
+        <div>
+            <button onClick={handleClick}>Fetch Data</button>
+            {data && <p>{data}</p>}
+        </div>
+    );
+}
+
+export default FetchButton;
+
+// -------------------------------------------------------------------------- src/components/FetchButton.test.js
+
+import React from 'react';
+import { render, screen, fireEvent } from '@testing-library/react';
+import FetchButton from './FetchButton';
+
+test('fetches and displays data when button is clicked', async () => {
+    const mockFetchData = jest.fn().mockResolvedValue('Hello, World!');
+
+    render(<FetchButton fetchData={mockFetchData} />);
+
+    fireEvent.click(screen.getByText(/fetch data/i));
+
+    const dataElement = await screen.findByText(/hello, world!/i);
+    expect(dataElement).toBeInTheDocument();
+    expect(mockFetchData).toHaveBeenCalledTimes(1);
+});
+
+// ------------------------------------------------------------------------------------ src/App.js
+
+import React from 'react';
+import Button from './components/Button';
+import FetchButton from './components/FetchButton';
+import './App.css';
+
+function App() {
+    // Mock fetchData function for FetchButton
+    const mockFetchData = async () => {
+        return "Hello, World!";
+    };
+
+    return (
+        <div className="App">
+            <header className="App-header">
+                <h1>Testing React Components</h1>
+
+                {/* Button Component */}
+                <Button label="Click Me" onClick={() => alert("Button Clicked!")} />
+
+                {/* FetchButton Component */}
+                <FetchButton fetchData={mockFetchData} />
+            </header>
+        </div>
+    );
+}
+
+export default App;
+
+// ------------------------------------------------------------------------------ src/App.test.js
+
+import React from "react";
+import { render, screen } from "@testing-library/react";
+import App from "./App";
+
+test("renders the main heading", () => {
+    render(<App />);
+    const headingElement = screen.getByText(/Testing React Components/i);
+    expect(headingElement).toBeInTheDocument();
+});
+
+test('renders the button with label "Click Me"', () => {
+    render(<App />);
+    const buttonElement = screen.getByText(/Click Me/i);
+    expect(buttonElement).toBeInTheDocument();
+});
+
+test('renders the fetch button with label "Fetch Data"', () => {
+    render(<App />);
+    const fetchButtonElement = screen.getByText(/Fetch Data/i);
+    expect(fetchButtonElement).toBeInTheDocument();
+});

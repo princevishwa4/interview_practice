@@ -248,3 +248,109 @@ function handleClick() {
 }
 
 Note: Using flushSync is generally discouraged because it hurts performance. It should only be used when dealing with direct DOM measurements or third-party non-React libraries.
+
+39. Error boundary
+-> An Error Boundary is a React component that:
+✅ catches runtime errors in child components
+✅ prevents whole app crash
+✅ shows fallback UI
+✔ Works like a component-level try/catch
+
+Functional components CANNOT directly act as error boundaries because error boundaries require lifecycle methods:
+- getDerivedStateFromError
+- componentDidCatch
+These are only available in class components
+
+There are 2 correct approaches used in industry
+a. Use a Class ErrorBoundary + Functional Components
+import React from "react";
+
+class ErrorBoundary extends React.Component<
+  { children: React.ReactNode },
+  { hasError: boolean }
+> {
+  constructor(props: any) {
+    super(props);
+    this.state = { hasError: false };
+  }
+
+  static getDerivedStateFromError() {
+    return { hasError: true };
+  }
+
+  componentDidCatch(error: Error, info: React.ErrorInfo) {
+    console.error("Error:", error, info);
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return <h2>Something went wrong</h2>;
+    }
+
+    return this.props.children;
+  }
+}
+
+export default ErrorBoundary;
+
+getDerivedStateFromError function renders the fallback UI interface
+componentDidCatch logs the error information to an error tracking service
+---------------------------------
+function BuggyComponent() {
+  throw new Error("Crash!");
+}
+
+function App() {
+  return (
+    <ErrorBoundary>
+      <BuggyComponent />
+    </ErrorBoundary>
+  );
+}
+
+b. Functional way using library :- react-error-boundary
+
+React does not support error boundaries in functional components directly because they rely on lifecycle methods only available in class components. In functional setups, we either wrap components with a class-based ErrorBoundary or use libraries like react-error-boundary.
+
+40. Custom Hook.
+-> 
+a. A Custom Hook is a function/design pattern whose name begins with ‘use’ and which calls other hooks.
+b. It helps you to create a reusable and  stateful logic without any need for component hierarchy restructuring.
+c. It will allow you for avoiding multiple layers of abstraction or wrapper hell that might come along with Render Props and HoCs.
+
+Wrapper Hell :-
+export default withAuth(
+  withLogger(
+    withData(
+      MyComponent
+    )
+  )
+);
+
+This becomes:
+withAuth(
+  withLogger(
+    withData(
+      MyComponent
+    )
+  )
+)
+
+
+function MyComponent({ data }) {
+  return <div>{data}</div>;
+}
+
+Looks clean, but logic is hidden across wrappers
+Debugging = nightmare
+
+Using Custom Hooks :-
+
+function Component() {
+  useA();
+  useB();
+  useC();
+
+  return <UI />;
+}
+

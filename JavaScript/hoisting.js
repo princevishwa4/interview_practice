@@ -11,7 +11,7 @@ function getName() {
 
 // If we remove the variable then it will throw a reference error
 getName(); // Hello Hoisting
-console.log(x); // Reference error
+console.log(x); // Reference error: x is not defined
 
 function getName() {
     console.log('Hello Hoisting');
@@ -19,7 +19,7 @@ function getName() {
 
 // Instead of invoking a function, if we directly console the function, it ill return the complete function body.
 console.log(getName); // function getName() { console.log('Hello Hoisting') }
-console.log(x); // Reference error
+console.log(x); // Reference error: x is not defined
 
 function getName() {
     console.log('Hello Hoisting');
