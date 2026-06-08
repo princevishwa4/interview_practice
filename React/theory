@@ -89,6 +89,16 @@ e. Server-Side Rendering: Use server-side rendering to pre-render your React com
 
 18. What is the purpose of the useImperativeHandle hook in React ?
 -> The useImperativeHandle hook in React is used to customize the instance value that is exposed to parent components when using React.forwardRef. It allows you to define which properties or methods of a child component's instance should be accessible to parent components when using a ref.
+
+useImperativeHandle allows a child component to customize the value exposed to its parent through a ref.
+Normally, when a parent attaches a ref to a child component using forwardRef, the parent gets access to the child component's DOM element. With useImperativeHandle, you can expose only specific methods or properties instead of the entire DOM node.
+
+Why use it?
+Encapsulate internal implementation details.
+Expose a controlled API from child to parent.
+Allow parent components to trigger actions in child components (focus, reset, open modal, etc.).
+Prevent direct access to internal DOM elements.
+
 <!-- Example -->
 const ChildComponent = React.forwardRef((props, ref) => {
   const inputRef = useRef(null);
