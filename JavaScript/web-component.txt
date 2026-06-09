@@ -1,0 +1,53 @@
+Web Components are a set of browser-native technologies that let you create reusable, encapsulated custom HTML elements—without relying on frameworks like React or Angular.
+
+Think of them as a way to build your own HTML tags like <my-button> or <user-card> that behave just like built-in elements.
+
+🧩 The 3 core technologies
+Web Components are built from three main standards:
+1. Custom Elements :- Define your own HTML tags.
+class MyElement extends HTMLElement {
+  connectedCallback() {
+    this.innerHTML = "<p>Hello World</p>";
+  }
+}
+
+customElements.define("my-element", MyElement);
+
+Now you can use: <my-element></my-element>
+
+
+2. Shadow DOM :- Encapsulates HTML, CSS, and JS so they don’t leak out or get affected by outside styles.
+class MyElement extends HTMLElement {
+  constructor() {
+    super();
+    const shadow = this.attachShadow({ mode: "open" });
+    shadow.innerHTML = `<style>p { color: red; }</style><p>Hello</p>`;
+  }
+}
+👉 Styles inside won’t affect the rest of the page.
+
+
+3. HTML Templates :- Reusable chunks of HTML that aren’t rendered until used.
+<template id="my-template">
+  <p>Reusable content</p>
+</template>
+
+
+🚀 Why use Web Components?
+Framework-independent (works with React, Vue, Angular, or no framework)
+Reusable across projects
+Encapsulated (no CSS conflicts thanks to Shadow DOM)
+Native browser support (no heavy libraries required)
+
+
+⚠️ Downsides
+More boilerplate compared to frameworks
+Less developer tooling than ecosystems like Vue.js
+Can be tricky with state management
+Not as ergonomic for large apps
+
+
+🧪 Example use case
+Imagine creating a reusable <user-card> component:
+<user-card name="John" age="25"></user-card>
+You define it once, and it works anywhere—React app, plain HTML page, or even another framework.
