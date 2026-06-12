@@ -346,6 +346,423 @@ export default function App() {
 }
 
 
+EY
+1. What will be the output of below code
+let obj={
+  name:"xyz",
+  printName: function(){
+    console.log(this);
+  },
+  valueOfThis: () => {
+    console.log(this);
+  }
+}
+
+obj.printName();
+obj.valueOfThis();
+ 
+2. What will be the output of below code
+var x = 23; 
+(function(){ 
+  x++;
+  console.log(x);
+ 
+  var x = 43;
+  (function random(){
+    x++;
+    console.log(x);
+    var x = 21;
+  })();
+
+})();
+ 
+ 
+3. What will be the output of below code ? How can you fix the second for loop
+const b = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+ 
+for (let i = 0; i < 10; i++) {
+  setTimeout(() => console.log(b[i]), 1000);
+}
+ 
+for (var i = 0; i < 10; i++) {
+  setTimeout(() => console.log(b[i]), 1000);
+}
+ 
+4. Remove the duplicate from the below array without using any built-in functions or DS and complexity should be O(N). Get the max occurence number along with the Object.
+let arr= [
+  {fname:"Praveen",age:28,department:"IT"},
+  {name:"ishu",age:26},
+  {name:"sadhna",age:29},
+  {name:"Praveen",age:28},
+  {fname:"Praveen",age:28},
+  {name:"sadhna",age:29},
+  {fname:"sadhna",age:29},
+  {name:"sadhna",age:29},
+  {name:"sadhna",age:29},
+  {name:"ishu",age:26},
+  {name:"sadhna",age:29,department:"IT"},
+  {fname:"sadhna",age:29,department:"IT"},
+  {fname:"sadhna",age:29,department:"IT"},
+  {age:29,department:"IT"},
+  {age:29,department:"IT"},
+  {name:"sadhna",age:29},
+  {name:"sadhna",age:29},
+  {city:"pune",company:"IT"},
+  {city:"pune",company:"IT"}
+]
+
+const obj = {};
+const finalArr = [];
+let maxLength = 0;
+let maxLengthObj;
+
+for (let i = 0; i < arr.length; i++) {
+  const stringified = JSON.stringify(arr[i]);
+  if (obj[stringified]) obj[stringified]++;
+  else {
+    obj[stringified] = 1;
+    finalArr.push(JSON.parse(stringified));
+  }
+
+  if (maxLength < obj[stringified]) {
+    maxLength = obj[stringified];
+    maxLengthObj = JSON.parse(stringified);
+  }
+}
+
+console.log(maxLength, maxLengthObj);
+
+// for (const key in obj) {
+//     finalArr.push(JSON.parse(key));
+// }
+ 
+console.log(finalArr);
+ 
+ 
+5. Find index of 7 using binary search divide and conqueror
+let arr =[1,2,3,4,5,6,7,8,9,10,11,13,14,16,17]
+ 
+function binarySearch(arr, num) {
+  let  i = 0;
+  let j = arr.length - 1;
+  while (i <= j) {
+    let mid = Math.floor((i + j) / 2);
+    if (arr[mid] === num) return mid;
+    else if (arr[mid] < num) i = mid + 1;
+    else j = mid - 1;
+  }
+  return -1;
+}
+ 
+console.log(binarySearch(arr, 9));
+
+6. What will be the output of below code ? Assume Promise() -> just have a console in it.
+(function(){
+  setTimeout(()=> console.log(1),2000);
+  console.log(2);
+  promise1();
+  promise2();
+  setTimeout(()=> console.log(3),0);
+  console.log(4);
+  promise3();
+})();
+
+7. What will be the output of the below code. 
+function fun1(){
+  setTimeout(()=>{
+    console.log(x);
+    console.log(y);
+  })
+  var x=2;
+  let y=12;
+}
+fun1()
+
+8. Event Loop
+9. Hoisting
+10. Promises, different methods of Promises, when to use which one
+11. SOLID principles
+12. Design Patterns
+13. Closure
+14. Create 2 fields like firstname, lastname with 2 buttons 1 as add more and 1 as submit. Clicking on add more button should add the same 2 fields firstname, lastname again depends on how many times add more button was clicked. Once the input has populated with the value, we should be able to re-edit that value. On submitting the value should be aggregated and then can be shared to the API.
+Enhancement -> 1. Create input fields as a separate reusable component
+               2. How can we limit the re-rendering happening on every keystroke
+
+export default function App() {
+  const [fields, setFields] = useState([
+    {
+      id: 1,
+      firstName: '',
+      lastName: '',
+    },
+  ]);
+
+  function addMoreFields() {
+    setFields((prev) => [
+      ...prev,
+      {
+        id: new Date().getTime(),
+        firstName: '',
+        lastName: '',
+      },
+    ]);
+  }
+
+  function handleChange(id, fieldName, value) {
+    setFields((prev) => {
+      return prev?.map((u) => {
+        if (u.id === id) {
+          return { ...u, [fieldName]: value };
+        }
+        return u;
+      });
+    });
+  }
+
+  console.log(fields);
+
+  return (
+    <div>
+      {fields.map((user) => (
+        <>
+          <Input user={user} handleChange={handleChange} />
+          {/* <input
+            type="text"
+            name="firstName"
+            placeholder="First Name"
+            value={user.firstName}
+            onChange={(e) => handleChange(user.id, 'firstName', e.target.value)}
+          />
+          <input
+            type="text"
+            name="lastName"
+            placeholder="Last Name"
+            value={user.lastName}
+            onChange={(e) => handleChange(user.id, 'lastName', e.target.value)}
+          /> */}
+        </>
+      ))}
+      <button onClick={addMoreFields}>Add More</button>
+      <button>Submit</button>
+    </div>
+  );
+}
+
+import React from 'react';
+
+function Input(props) {
+  return (
+    <>
+      <input
+        type="text"
+        name="firstName"
+        placeholder="First Name"
+        value={props.user.firstName}
+        onChange={(e) =>
+          props.handleChange(props.user.id, 'firstName', e.target.value)
+        }
+      />
+      <input
+        type="text"
+        name="lastName"
+        placeholder="Last Name"
+        value={props.user.lastName}
+        onChange={(e) =>
+          props.handleChange(props.user.id, 'lastName', e.target.value)
+        }
+      />
+    </>
+  );
+}
+
+export default Input;
+
+
+15. Comments API was provided. Create an input which will take the number and based on that number extract out the specific comment by checking the id present in the data.
+Enhancement -> How can we make the logic resuable
+import React, { useEffect, useState } from 'react';
+import Input from './Input';
+import useFetch from './use-fetch';
+import './style.css';
+
+export default function App() {
+  const [id, setId] = useState(0);
+
+  // useEffect(() => {
+  //   async function fetchData() {
+  //     const result = await fetch('https://jsonplaceholder.typicode.com/posts');
+  //     if (!result.ok) console.log('error :- ', result);
+  //     const data = await result.json();
+  //     setCommentsData(data);
+  //   }
+  //   fetchData();
+  // }, []);
+
+  // useEffect(() => {
+  //   const data = commentsData.filter((comment) => {
+  //     if (comment.id == id) return comment;
+  //     return null;
+  //   });
+  //   console.log({ ...data });
+  //   setFilteredData({ ...data[0] });
+  // }, [id]);
+  // console.log(commentsData);
+
+  const { filteredData } = useFetch(id);
+  console.log('filtered data in app:- ', filteredData);
+
+  return (
+    <>
+      <input
+        type="number"
+        name="id"
+        placeholder="Enter Number"
+        value={id}
+        onChange={(e) => setId(e.target.value)}
+      />
+
+      {filteredData && (
+        <div>
+          <span>{filteredData.userId}</span>
+          <span>{filteredData.id}</span>
+          <span>{filteredData.title}</span>
+          <span>{filteredData.body}</span>
+        </div>
+      )}
+    </>
+  );
+}
+
+
+EClerx
+1. Some tricky JS consoles
+2. BOM
+3. Hoisting
+4. Memoization
+5. Virtual DOM
+6. Code Splitting
+7. Browser Router vs Hash Router
+8. Remove duplicates from an array
+
+
+Altimetrik
+1. Controlled vs Uncontrolled Input Warning
+2. What will be the warning for the below code
+const [name, setName] = useState();
+<input
+  value={name}
+  onChange={(e) => setName(e.target.value)}
+/>
+3. Create two dropdowns (Country and City) from a given JSON and remove duplicate values. Selecting a country should filter the city dropdown.
+I/P
+[
+    {
+        country: 'India',
+        city: ['Delhi', 'Mumbai']
+    },
+    {
+        country: 'UK', 
+        city: ['London', 'Manchester','Manchester']
+    }, 
+    {
+        country: 'USA', 
+        city: ['Miami', 'New York','Miami']
+    }
+];
+import React, { useEffect, useState } from 'react';
+import data from './data';
+import './style.css';
+ 
+export default function App() {
+  const [countryData, setCountryData] = useState(data);
+  const [country, setCountry] = useState('');
+  const [cityOfSelectedCountry, setCityOfSelectedCountry] = useState([]);
+  const [city, setCity] = useState('');
+ 
+  useEffect(() => {
+    if (!country) return;
+ 
+    const cityArr = [];
+    for (let i = 0; i < data.length; i++) {
+      if (data[i].country === country) {
+        cityArr.push(...data[i].city);
+        break;
+      }
+    }
+    setCityOfSelectedCountry(cityArr);
+  }, [country]);
+ 
+  console.log('Country, City :- ', country, city);
+ 
+  return (
+    <div>
+      <select onChange={(e) => setCountry(e.target.value)}>
+        <option>Select Country</option>
+        {countryData.map((ct) => {
+          return <option>{ct.country}</option>;
+        })}
+      </select>
+      <br />
+      <br />
+      <br />
+      <br />
+      <select onChange={(e) => setCity(e.target.value)}>
+        <option>Select City</option>
+        {cityOfSelectedCountry.map((city) => {
+          return <option>{city}</option>;
+        })}
+      </select>
+    </div>
+  );
+}
+
+4. What is the issue in the below code
+import { useEffect, useState } from "react";
+ 
+export default function App() {
+  const [count, setCount] = useState(0);
+  useEffect(() => {
+    console.log(count);
+  }, []);
+ 
+  return (
+    <button onClick={() => setCount(count + 1)}>
+      Increment
+    </button>
+  );
+}
+
+5. How to fetch the params from this kind of url -> /user/:id
+6. What is useMatch() ?
+7. Complete the below code
+function SearchFilter() {
+    const [query, setQuery] = useState("");
+    const [results, setResults] = useState([]);
+    // Debounce query by 500ms
+    const debouncedQuery = useDebounce(query, 500);
+   
+    useEffect(() => {
+      // write fetch to method 
+    }, [debouncedQuery]);
+   
+    return (
+        <div>
+            <input
+            type="text"
+            placeholder="Search..."
+            value={query}
+            onChange={e => setQuery(e.target.value)}
+            />
+            <ul>
+            {results.map(r => (
+                <li key={r.id}>{r.name}</li>
+            ))}
+            </ul>
+    </div>
+    );
+  }
+
+export default SearchFilter;
 
 
 
