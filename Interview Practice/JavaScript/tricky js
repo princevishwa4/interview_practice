@@ -1,0 +1,39 @@
+[] + [] -> '' (Arrays are converted to strings. [].toString() is "", so "" + "" → "")
+typeof null -> object
+NaN === NaN -> false
+0.1 + 0.2 === 0.3 -> false (Floating-point precision issue (0.30000000000000004))
+[] == false -> true ([] → "" → 0, false → 0, so 0 == 0)
+{} + {} -> "[object Object][object Object]" (because both objects are converted to strings: "[object Object]" + "[object Object]")
+5 == "5" -> true
+5 === "5" -> false
+[] + {} -> "[object Object]"
+null == undefined -> true
+null === undefined -> false
+typeof NaN -> number
+{} + [] -> 0 (At the start of a statement, JavaScript interprets {} as an empty block rather than an object literal. The remaining expression becomes +[]. Unary plus converts the empty array to a number: [] → "" → 0, so the result is 0.)
+Why?
+JavaScript parses the first {} as an empty block statement, not an object literal.
+So the engine sees:
+{}
++[]
+
+which is effectively: +[]
+Now evaluate: +[]
+
+Unary + converts the array to a number :- [] -> ""
+then: Number("")
+becomes: 0
+
+Therefore:
++[] === 0
+
+Result:
+0
+
+If you force both to be objects/arrays :- ({}) + []
+
+Now the first {} is definitely an object literal.
+Evaluation: ({}).toString() + [].toString()
+becomes: "[object Object]" + ""
+
+Result: "[object Object]"
