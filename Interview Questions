@@ -764,6 +764,29 @@ function SearchFilter() {
 
 export default SearchFilter;
 
+8. Fetch data from API, add search bar, debounce query input.
+9. Output based question related to React.memo
+10. Debug and rectify the code
+11. Eventloop
+12. Closure
+13. What is HOC ? How it is different from Custom Hook ? Real world Example
+
+
+
+NTT Data
+1. 
+console.log([10, 1, '2', 5].sort())
+console.log([true, false, false, true].sort())
+console.log([10, 1, 2, 5].sort())
+2. Remove duplicates from an array
+3. Eventloop
+4. useMemo vs useCallback, React.memo
+5. What will be the output for the below code snippet
+console.log('A');
+setTimeout(() => console.log('B'), 0);
+Promise.resolve().then(() => console.log('C'));
+console.log('D');
+
 
 
  
