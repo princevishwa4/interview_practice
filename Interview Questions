@@ -770,6 +770,8 @@ export default SearchFilter;
 11. Eventloop
 12. Closure
 13. What is HOC ? How it is different from Custom Hook ? Real world Example
+14. How to write testcases by creating our own Agent
+15. How to cancel out previous API call if the new API call is triggered (consider example of search where on every keystroke API is getting triggered)
 
 
 
