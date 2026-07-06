@@ -244,50 +244,11 @@ return ("Z")
 
 Protiviti
 
-1. // Example Input: "abcabcbb"
-// Output: 3
-
-function checkUniqueness(str) {
-    let flag = false;
-    for (let i = 0; i < str.length; i++) {
-        for (let j = i+1; j < str.length; j++) {
-            if (str[i] === str[j]) {
-                flag = true;
-                break;
-            }
-        }
-    }
-    if (!flag) {
-        return str;
-    }
-    
-    return '';
-}
-
-function longestSubstring(str) {
-    let i = 0, j = i+1;
-    let windowStr = "";
-    const hashset = new Set();
-
-    while (i < str.length) {
-        windowStr += str[i];
-        while (j < str.length) {
-            windowStr += str[j];
-            checkUniqueness(windowStr)
-            hashset.add(checkUniqueness(windowStr));
-            j++;
-        }
-        i++;
-        j = i+1;
-        windowStr = "";
-    }
-    
-    for (const keys)
-    console.log(hashset);
-}
-
-longestSubstring("abcabcbb")
-2. import React, { useEffect, useState } from 'react';
+Round 1 :-
+1. Find the length of the longest non-repeating substring
+Eg :- abcabcbb, o/p :- 3
+2. Remove the bugs from the below code
+import React, { useEffect, useState } from 'react';
 import './style.css';
 
 export default function App() {
@@ -306,13 +267,13 @@ export default function App() {
     setUsers(data);
     console.log('data :- ', data)
   };
-  
+ 
   const handleDelete = (id) => {
     users.splice(
       users.findIndex((user) => user.id === id),
       1
       );
-      
+     
     setUsers(users);
   };
 
@@ -344,6 +305,15 @@ export default function App() {
     </div>
   );
 }
+Round 2 :-
+3. 1a2b3c -> abbccc
+4. useEffect hook
+Round 3 :-
+5. Write basic test cases based on the given scenario
+6. Machine coding -> Organization tree just like we have in our teams when we hover over the profile (same as folder structure)
+Round 4 :-
+7. Machine coding -> Integrate any MUI component (like calendar, table) in react component
+8. Create table using html with specific number of rows and columns and apply modification like merging 2 columns or 2 rows
 
 
 EY
